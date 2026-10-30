@@ -34,7 +34,7 @@ body{margin:0;font-family:var(--f-body);font-size:1rem;line-height:1.6;backgroun
   --gold:#9C5560; --goldhi:#EBD3CE;
   --ink:#7A2433;  --inkSoft:#9A5862; --inkFaint:rgba(122,36,51,.48);
   --accent:#C98B95; --leaf:#8A8E6B; --orn2:#B99C92;
-  --bloomTint:saturate(.72) hue-rotate(-5deg) brightness(.99) contrast(.96);
+  --bloomTint:none;
 }
 .haldi{
   --sky1:#A9C6CE; --sky2:#7A9FAD; --sky3:#54798C;
@@ -42,7 +42,7 @@ body{margin:0;font-family:var(--f-body);font-size:1rem;line-height:1.6;backgroun
   --gold:#C08A4E; --goldhi:#F0DCB8;
   --ink:#FFF6EE;  --inkSoft:rgba(255,246,238,.93); --inkFaint:rgba(255,246,238,.6);
   --accent:#D79A5A; --leaf:#7E8C66; --orn2:#D8C3A0;
-  --bloomTint:saturate(.78) hue-rotate(20deg) brightness(1.02) contrast(.95);
+  --bloomTint:hue-rotate(18deg) saturate(1.08);
 }
 .sangeet{
   --sky1:#3D3652; --sky2:#2A2439; --sky3:#191525;
@@ -50,7 +50,7 @@ body{margin:0;font-family:var(--f-body);font-size:1rem;line-height:1.6;backgroun
   --gold:#C9A47E; --goldhi:#EBD6BC;
   --ink:#F4E7DE;  --inkSoft:rgba(244,231,222,.88); --inkFaint:rgba(244,231,222,.56);
   --accent:#B98FA0; --leaf:#4A4162; --orn2:#8E7A86;
-  --bloomTint:saturate(.45) sepia(.28) brightness(.66) contrast(.95);
+  --bloomTint:saturate(.62) sepia(.2) brightness(.76);
 }
 .vivah{
   --sky1:#E9D9D3; --sky2:#DEB7A6; --sky3:#CF9B8D;
@@ -58,7 +58,7 @@ body{margin:0;font-family:var(--f-body);font-size:1rem;line-height:1.6;backgroun
   --gold:#A5603F; --goldhi:#EFD5BE;
   --ink:#6B2433;  --inkSoft:#8E4C52; --inkFaint:rgba(107,36,51,.5);
   --accent:#C98A78; --leaf:#8A8E6B; --orn2:#C6A592;
-  --bloomTint:saturate(.8) hue-rotate(4deg) brightness(1) contrast(.95);
+  --bloomTint:hue-rotate(4deg);
 }
 .reception{
   --sky1:#C6B4C8; --sky2:#A693B0; --sky3:#857791;
@@ -66,7 +66,7 @@ body{margin:0;font-family:var(--f-body);font-size:1rem;line-height:1.6;backgroun
   --gold:#D9BA96; --goldhi:#F0DCC6;
   --ink:#FBF1EC;  --inkSoft:rgba(251,241,236,.9); --inkFaint:rgba(251,241,236,.58);
   --accent:#C4A0BC; --leaf:#625873; --orn2:#B9A6B8;
-  --bloomTint:saturate(.62) hue-rotate(-16deg) brightness(.9) contrast(.95);
+  --bloomTint:hue-rotate(-14deg) saturate(.98);
 }
 
 /* ---------------- the fixed backdrop that crossfades ---------------- */
@@ -105,22 +105,18 @@ body{margin:0;font-family:var(--f-body);font-size:1rem;line-height:1.6;backgroun
 .sangeet .bokeh,.reception .bokeh{opacity:.9;animation:twinkle 7s ease-in-out infinite}
 @keyframes twinkle{0%,100%{filter:brightness(1)}50%{filter:brightness(1.45)}}
 /* real roses, cut from the photographs; each palette tints its own copy */
-.garland{position:absolute;left:50%;bottom:-6%;transform:translateX(-50%);
-  width:min(560px,106%);height:auto;filter:var(--bloomTint,none);
-  /* the tall stems dissolve into the sky instead of ending on a hard edge */
-  -webkit-mask-image:linear-gradient(to top,#000 58%,rgba(0,0,0,0) 100%);
-  mask-image:linear-gradient(to top,#000 58%,rgba(0,0,0,0) 100%)}
-/* sprays hanging from the top corners, turned over so the stems point up */
-.corner{position:absolute;top:0;width:min(186px,40%);height:auto;
-  filter:var(--bloomTint,none);opacity:.95;
-  /* in element space: solid at its foot, fading at its head. The 180deg turn
-     then puts the solid end against the top of the screen. */
-  -webkit-mask-image:linear-gradient(to top,#000 55%,rgba(0,0,0,0) 100%);
-  mask-image:linear-gradient(to top,#000 55%,rgba(0,0,0,0) 100%)}
-/* translate before rotate, so the shift stays in screen axes and lifts the
-   sprays toward the top edge instead of dropping them */
-.corner.l{left:-9%;transform:translateY(-19%) rotate(180deg)}
-.corner.r{right:-9%;transform:translateY(-19%) rotate(180deg) scaleX(-1)}
+.garland{position:absolute;left:50%;bottom:-3%;transform:translateX(-50%);
+  width:min(560px,104%);height:auto;filter:var(--bloomTint,none);
+  /* the topmost leaves fade out, so where the swag reaches a line of text
+     the words stay legible instead of sitting on painted foliage */
+  -webkit-mask-image:linear-gradient(to top,#000 68%,rgba(0,0,0,0) 100%);
+  mask-image:linear-gradient(to top,#000 68%,rgba(0,0,0,0) 100%)}
+/* painted corner sprays; the 180deg turn puts their blooms in the corner
+   and lets the foliage trail inward, so no mask is needed */
+.corner{position:absolute;top:0;width:min(208px,44%);height:auto;
+  filter:var(--bloomTint,none);opacity:.96}
+.corner.l{left:-3%;transform:rotate(180deg)}
+.corner.r{right:-3%;transform:rotate(180deg) scaleX(-1)}
 
 /* a long printed scroll has edges; these stay put while the words move */
 
@@ -169,10 +165,8 @@ main{position:relative;z-index:2}
 .band.haldi,.band.sangeet,.band.reception{text-shadow:0 1px 12px rgba(10,22,46,.5)}
 
 /* the join between one passage and the next */
-.seam{display:flex;align-items:center;gap:13px;width:min(260px,76%);margin:0 auto;padding-block:6px}
-.seam .r{flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.75}
-.seam .s{width:13px;height:13px;color:var(--gold);flex:none}
-.seam .s svg{display:block;width:100%;height:100%}
+.seam{display:flex;justify-content:center;padding-block:2px}
+.seam img{width:min(236px,58%);height:auto;opacity:.9}
 
 a.btn,button.btn{
   font-family:var(--f-disp);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
@@ -276,10 +270,6 @@ a.btn:focus-visible,button.btn:focus-visible,button:focus-visible,input:focus-vi
 </style>
 
 <svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute">
-  <symbol id="rosette8" viewBox="0 0 40 40">
-      <path fill="currentColor" d="M24.42 20 Q24.42 25.1 37 20 Q24.42 14.9 24.42 20 Z M23.13 23.13 Q19.52 26.73 32.02 32.02 Q26.73 19.52 23.13 23.13 Z M20 24.42 Q14.9 24.42 20 37 Q25.1 24.42 20 24.42 Z M16.87 23.13 Q13.27 19.52 7.98 32.02 Q20.48 26.73 16.87 23.13 Z M15.58 20 Q15.58 14.9 3 20 Q15.58 25.1 15.58 20 Z M16.87 16.87 Q20.48 13.27 7.98 7.98 Q13.27 20.48 16.87 16.87 Z M20 15.58 Q25.1 15.58 20 3 Q14.9 15.58 20 15.58 Z M23.13 16.87 Q26.73 20.48 32.02 7.98 Q19.52 13.27 23.13 16.87 Z"/>
-      <circle cx="20" cy="20" r="3.2" fill="var(--orn2,#B99C92)"/>
-  </symbol>
 
   <symbol id="lotus" viewBox="0 0 48 30">
     <g fill="none" stroke="currentColor" stroke-width="1.2">
@@ -414,7 +404,7 @@ a.btn:focus-visible,button.btn:focus-visible,button:focus-visible,input:focus-vi
   <p class="caps strong">20 &amp; 21 November 2026 &middot; Lucknow</p>
 </section>
 
-<div class="seam"><span class="r"></span><span class="s"><svg><use href="#rosette8"/></svg></span><span class="r"></span></div>
+<div class="seam"><img src="assets/sprig.webp" alt="" decoding="async"></div>
 
 <section class="band ivory" data-label="The couple" aria-labelledby="h2">
   <p class="lede">With the blessings of Lord Ganesha and of the elders of our family</p>
@@ -434,7 +424,7 @@ a.btn:focus-visible,button.btn:focus-visible,button:focus-visible,input:focus-vi
   <p class="parent">Daughter of Late Mithlesh &amp; Mr. Chandra Prakash Srivastava</p>
 </section>
 
-<div class="seam"><span class="r"></span><span class="s"><svg><use href="#rosette8"/></svg></span><span class="r"></span></div>
+<div class="seam"><img src="assets/sprig.webp" alt="" decoding="async"></div>
 
 <section class="band ivory" data-label="Countdown" aria-labelledby="h3">
   <p class="eyebrow">Saturday, 21 November 2026</p>
@@ -453,7 +443,7 @@ a.btn:focus-visible,button.btn:focus-visible,button:focus-visible,input:focus-vi
   <p class="note" id="cdNote">Counted to 10:00 a.m. India Standard Time, when the baraat reaches the gate.</p>
 </section>
 
-<div class="seam"><span class="r"></span><span class="s"><svg><use href="#rosette8"/></svg></span><span class="r"></span></div>
+<div class="seam"><img src="assets/sprig.webp" alt="" decoding="async"></div>
 
 <section class="band haldi" data-label="Haldi" aria-labelledby="h4">
   <h2 id="h4" class="script evt">Haldi</h2>
@@ -469,7 +459,7 @@ a.btn:focus-visible,button.btn:focus-visible,button:focus-visible,input:focus-vi
   <a class="btn" target="_blank" rel="noopener" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Haldi%20%E2%80%94%20Saharsh%20weds%20Shreya&amp;dates=20261120T043000Z/20261120T073000Z&amp;location=Scorpio%20Club%2C%20Kursi%20Road%2C%20Lucknow&amp;details=Haldi%20ceremony%20of%20Saharsh%20and%20Shreya.">Add to calendar</a>
 </section>
 
-<div class="seam"><span class="r"></span><span class="s"><svg><use href="#rosette8"/></svg></span><span class="r"></span></div>
+<div class="seam"><img src="assets/sprig.webp" alt="" decoding="async"></div>
 
 <section class="band sangeet" data-label="Sangeet" aria-labelledby="h5">
   <h2 id="h5" class="script evt">Sangeet</h2>
@@ -485,7 +475,7 @@ a.btn:focus-visible,button.btn:focus-visible,button:focus-visible,input:focus-vi
   <a class="btn" target="_blank" rel="noopener" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Sangeet%20%E2%80%94%20Saharsh%20weds%20Shreya&amp;dates=20261120T123000Z/20261120T163000Z&amp;location=Scorpio%20Club%2C%20Kursi%20Road%2C%20Lucknow&amp;details=Sangeet%20evening%20of%20Saharsh%20and%20Shreya.">Add to calendar</a>
 </section>
 
-<div class="seam"><span class="r"></span><span class="s"><svg><use href="#rosette8"/></svg></span><span class="r"></span></div>
+<div class="seam"><img src="assets/sprig.webp" alt="" decoding="async"></div>
 
 <section class="band vivah" data-label="Shubh Vivah" aria-labelledby="h6">
   <h2 id="h6" class="script evt">Shubh Vivah</h2>
@@ -501,7 +491,7 @@ a.btn:focus-visible,button.btn:focus-visible,button:focus-visible,input:focus-vi
   <a class="btn" target="_blank" rel="noopener" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Shubh%20Vivah%20%E2%80%94%20Saharsh%20weds%20Shreya&amp;dates=20261121T043000Z/20261121T093000Z&amp;location=Scorpio%20Club%2C%20Kursi%20Road%2C%20Lucknow&amp;details=Wedding%20ceremony%20of%20Saharsh%20and%20Shreya.">Add to calendar</a>
 </section>
 
-<div class="seam"><span class="r"></span><span class="s"><svg><use href="#rosette8"/></svg></span><span class="r"></span></div>
+<div class="seam"><img src="assets/sprig.webp" alt="" decoding="async"></div>
 
 <section class="band reception" data-label="Reception" aria-labelledby="h7">
   <h2 id="h7" class="script evt">Grand Reception</h2>
@@ -517,7 +507,7 @@ a.btn:focus-visible,button.btn:focus-visible,button:focus-visible,input:focus-vi
   <a class="btn" target="_blank" rel="noopener" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Grand%20Reception%20%E2%80%94%20Saharsh%20weds%20Shreya&amp;dates=20261121T133000Z/20261121T173000Z&amp;location=Scorpio%20Club%2C%20Kursi%20Road%2C%20Lucknow&amp;details=Reception%20of%20Saharsh%20and%20Shreya.">Add to calendar</a>
 </section>
 
-<div class="seam"><span class="r"></span><span class="s"><svg><use href="#rosette8"/></svg></span><span class="r"></span></div>
+<div class="seam"><img src="assets/sprig.webp" alt="" decoding="async"></div>
 
 <section class="band ivory" data-label="Venue" aria-labelledby="h8">
   <p class="eyebrow">Venue</p>
@@ -540,7 +530,7 @@ a.btn:focus-visible,button.btn:focus-visible,button:focus-visible,input:focus-vi
   </ul>
 </section>
 
-<div class="seam"><span class="r"></span><span class="s"><svg><use href="#rosette8"/></svg></span><span class="r"></span></div>
+<div class="seam"><img src="assets/sprig.webp" alt="" decoding="async"></div>
 
 <section class="band ivory" data-label="Blessings" aria-labelledby="h9">
   <p class="deva devaSmall">&#2405; &#2358;&#2381;&#2352;&#2368; &#2327;&#2339;&#2375;&#2358;&#2366;&#2351; &#2344;&#2350;&#2307; &#2405;</p>

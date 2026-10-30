@@ -40,6 +40,31 @@ same dusty, desaturated register. The flower photographs are tinted per palette
 through `--bloomTint`, and the border takes its colour from the passage you are
 reading.
 
+**The title scene.** The opening passage is staged rather than washed. A
+cusped arch is drawn in gold line-work over a cream wall, with silk falling
+from the two upper corners, bells and bead strands swaying along its head, and
+a standing lamp at each of its feet. The arch is stretched to a portrait column
+so it frames the words, while the silk and the bells run out to the screen
+edges where the corner flowers already hang; every stroke uses a non-scaling
+stroke, so no line thickens as the column widens. All of it sits in the first
+backdrop layer, so it fades out with that layer and costs the other eight
+scenes nothing.
+
+**Two fixed stacks.** The scenery is split in two. #backdrop sits behind the
+words; #canopy sits in front of them and holds the corner sprays, so a passage
+scrolling away slides under the flowers instead of across them. Both stacks
+crossfade off the same scroll position. The swag stays in #backdrop on purpose:
+the last line of every passage sits exactly where it hangs, and its top is
+masked to fade out so the words there stay legible.
+
+**Fitting a phone.** The passage is centred between the sprays above it and the
+swag below, so it only clears both while its own height stays under twice the
+distance from the middle of the screen to whatever the sprays reach. The
+sprays, swag, lamps, Ganesha and the stops between lines are all bounded by
+svh as well as by width for that reason, and the bells are scaled up and their
+inner pair dropped so the remaining ones flank the narrow opening lines rather
+than land on them.
+
 **Opening.** The page opens behind a wax seal. Tapping it, scrolling, swiping,
 dragging the scrollbar or pressing Down/PageDown/Space all open it. A tap starts
 from the top; a scroll carries on from where you were.

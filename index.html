@@ -16,6 +16,8 @@
   /* seams sit between bands, outside every palette scope, so these need
      a root-level default or their rules vanish and their stars go black */
   --gold:#9C5560; --ink:#7A2433; --inkSoft:#9A5862;
+  /* patterns cannot see currentColor, so their ink rides on this */
+  --railInk:#9C5560;
   --rule:rgba(124,46,62,.42);
   --ruleFaint:rgba(124,46,62,.22);
   color-scheme: light;
@@ -184,15 +186,13 @@ main{position:relative;z-index:2}
 .archframe{position:absolute;top:16px;left:50%;transform:translateX(-50%);
   width:min(392px,calc(100% - 18px));height:calc(100% - 32px);
   color:var(--gold);z-index:0;pointer-events:none}
-.band.open>*:not(.archframe){position:relative;z-index:1}
+.band.open>*:not(.archframe):not(.cornerVine){position:relative;z-index:1}
 
 .deva{font-family:var(--f-dev);color:var(--ink);line-height:1.95}
 .devaSmall{font-size:.84rem}
 .shloka{font-size:.8rem;color:var(--inkSoft);line-height:2.1}
 
-.medallion{width:112px;height:112px;color:var(--gold);position:relative;display:grid;place-items:center}
-.medallion svg{position:absolute;inset:0;width:100%;height:100%}
-.medallion span{font-family:var(--f-dev);font-size:2.5rem;line-height:1;color:var(--ink);margin-top:-2px}
+.ganesh{width:min(138px,36%);height:auto;display:block}
 
 .script{font-family:var(--f-script);color:var(--ink);line-height:1.18;font-weight:400}
 .title{font-size:clamp(2.4rem,11.5vw,3.4rem)}
@@ -327,56 +327,56 @@ a.btn:focus-visible,button.btn:focus-visible,button:focus-visible,input:focus-vi
 <svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute">
   <defs>
     <pattern id="beadPat" width="26" height="108" patternUnits="userSpaceOnUse">
-      <path fill="currentColor" d="M13 1 L17.4 8 L13 15 L8.6 8 Z"/>
+      <path fill="var(--railInk,#9C5560)" d="M13 1 L17.4 8 L13 15 L8.6 8 Z"/>
       <circle cx="13" cy="30" r="2.6" fill="var(--orn2,#B99C92)"/>
-      <path fill="currentColor" d="M15.6 54 Q15.6 57 23 54 Q15.6 51 15.6 54 Z M14.84 55.84 Q12.72 57.96 20.07 61.07 Q16.96 53.72 14.84 55.84 Z M13 56.6 Q10 56.6 13 64 Q16 56.6 13 56.6 Z M11.16 55.84 Q9.04 53.72 5.93 61.07 Q13.28 57.96 11.16 55.84 Z M10.4 54 Q10.4 51 3 54 Q10.4 57 10.4 54 Z M11.16 52.16 Q13.28 50.04 5.93 46.93 Q9.04 54.28 11.16 52.16 Z M13 51.4 Q16 51.4 13 44 Q10 51.4 13 51.4 Z M14.84 52.16 Q16.96 54.28 20.07 46.93 Q12.72 50.04 14.84 52.16 Z"/>
+      <path fill="var(--railInk,#9C5560)" d="M15.6 54 Q15.6 57 23 54 Q15.6 51 15.6 54 Z M14.84 55.84 Q12.72 57.96 20.07 61.07 Q16.96 53.72 14.84 55.84 Z M13 56.6 Q10 56.6 13 64 Q16 56.6 13 56.6 Z M11.16 55.84 Q9.04 53.72 5.93 61.07 Q13.28 57.96 11.16 55.84 Z M10.4 54 Q10.4 51 3 54 Q10.4 57 10.4 54 Z M11.16 52.16 Q13.28 50.04 5.93 46.93 Q9.04 54.28 11.16 52.16 Z M13 51.4 Q16 51.4 13 44 Q10 51.4 13 51.4 Z M14.84 52.16 Q16.96 54.28 20.07 46.93 Q12.72 50.04 14.84 52.16 Z"/>
       <circle cx="13" cy="54" r="2.4" fill="var(--orn2,#B99C92)"/>
       <circle cx="13" cy="78" r="2.6" fill="var(--orn2,#B99C92)"/>
       <path fill="var(--orn2,#B99C92)" d="M13 92.6 L16.4 98 L13 103.4 L9.6 98 Z"/>
     </pattern>
     <pattern id="vinePat" width="64" height="300" patternUnits="userSpaceOnUse">
-      <path fill="none" stroke="currentColor" stroke-width="2.1" d="M32 -6 C29.33 1 14 21 16 36 C18 51 43.33 68 44 84 C44.67 100 19.67 116 20 132 C20.33 148 46.33 164 46 180 C45.67 196 19 212.67 18 228 C17 243.33 37.67 259 40 272 C42.33 285 33.33 300.33 32 306"/>
+      <path fill="none" stroke="var(--railInk,#9C5560)" stroke-width="2.1" d="M32 -6 C29.33 1 14 21 16 36 C18 51 43.33 68 44 84 C44.67 100 19.67 116 20 132 C20.33 148 46.33 164 46 180 C45.67 196 19 212.67 18 228 C17 243.33 37.67 259 40 272 C42.33 285 33.33 300.33 32 306"/>
       <path fill="var(--orn2,#B99C92)" d="M16 36 Q31.36 40.58 41.95 28.56 Q26.6 23.97 16 36 Z"/>
       <path fill="var(--orn2,#B99C92)" d="M16 36 Q12.28 24.1 -0.09 22.5 Q3.64 34.4 16 36 Z"/>
-      <path fill="currentColor" d="M16 36 Q19.61 27.32 14.43 21.08 Q10.66 28.27 16 36 Z"/>
-      <path fill="currentColor" d="M34.38 26 Q34.38 29.9 44 26 Q34.38 22.1 34.38 26 Z M33.39 28.39 Q30.63 31.15 40.19 35.19 Q36.15 25.63 33.39 28.39 Z M31 29.38 Q27.1 29.38 31 39 Q34.9 29.38 31 29.38 Z M28.61 28.39 Q25.85 25.63 21.81 35.19 Q31.37 31.15 28.61 28.39 Z M27.62 26 Q27.62 22.1 18 26 Q27.62 29.9 27.62 26 Z M28.61 23.61 Q31.37 20.85 21.81 16.81 Q25.85 26.37 28.61 23.61 Z M31 22.62 Q34.9 22.62 31 13 Q27.1 22.62 31 22.62 Z M33.39 23.61 Q36.15 26.37 40.19 16.81 Q30.63 20.85 33.39 23.61 Z"/>
+      <path fill="var(--railInk,#9C5560)" d="M16 36 Q19.61 27.32 14.43 21.08 Q10.66 28.27 16 36 Z"/>
+      <path fill="var(--railInk,#9C5560)" d="M34.38 26 Q34.38 29.9 44 26 Q34.38 22.1 34.38 26 Z M33.39 28.39 Q30.63 31.15 40.19 35.19 Q36.15 25.63 33.39 28.39 Z M31 29.38 Q27.1 29.38 31 39 Q34.9 29.38 31 29.38 Z M28.61 28.39 Q25.85 25.63 21.81 35.19 Q31.37 31.15 28.61 28.39 Z M27.62 26 Q27.62 22.1 18 26 Q27.62 29.9 27.62 26 Z M28.61 23.61 Q31.37 20.85 21.81 16.81 Q25.85 26.37 28.61 23.61 Z M31 22.62 Q34.9 22.62 31 13 Q27.1 22.62 31 22.62 Z M33.39 23.61 Q36.15 26.37 40.19 16.81 Q30.63 20.85 33.39 23.61 Z"/>
       <circle cx="31" cy="26" r="3.4" fill="var(--orn2,#B99C92)"/>
       <path fill="var(--orn2,#B99C92)" d="M44 84 Q45.5 99.96 60.62 105.28 Q59.12 89.32 44 84 Z"/>
       <path fill="var(--orn2,#B99C92)" d="M44 84 Q31.83 81.28 24.27 91.18 Q36.43 93.91 44 84 Z"/>
-      <path fill="currentColor" d="M44 84 Q38.66 91.73 42.43 98.92 Q47.61 92.68 44 84 Z"/>
-      <path fill="currentColor" d="M32.38 74 Q32.38 77.9 42 74 Q32.38 70.1 32.38 74 Z M31.39 76.39 Q28.63 79.15 38.19 83.19 Q34.15 73.63 31.39 76.39 Z M29 77.38 Q25.1 77.38 29 87 Q32.9 77.38 29 77.38 Z M26.61 76.39 Q23.85 73.63 19.81 83.19 Q29.37 79.15 26.61 76.39 Z M25.62 74 Q25.62 70.1 16 74 Q25.62 77.9 25.62 74 Z M26.61 71.61 Q29.37 68.85 19.81 64.81 Q23.85 74.37 26.61 71.61 Z M29 70.62 Q32.9 70.62 29 61 Q25.1 70.62 29 70.62 Z M31.39 71.61 Q34.15 74.37 38.19 64.81 Q28.63 68.85 31.39 71.61 Z"/>
+      <path fill="var(--railInk,#9C5560)" d="M44 84 Q38.66 91.73 42.43 98.92 Q47.61 92.68 44 84 Z"/>
+      <path fill="var(--railInk,#9C5560)" d="M32.38 74 Q32.38 77.9 42 74 Q32.38 70.1 32.38 74 Z M31.39 76.39 Q28.63 79.15 38.19 83.19 Q34.15 73.63 31.39 76.39 Z M29 77.38 Q25.1 77.38 29 87 Q32.9 77.38 29 77.38 Z M26.61 76.39 Q23.85 73.63 19.81 83.19 Q29.37 79.15 26.61 76.39 Z M25.62 74 Q25.62 70.1 16 74 Q25.62 77.9 25.62 74 Z M26.61 71.61 Q29.37 68.85 19.81 64.81 Q23.85 74.37 26.61 71.61 Z M29 70.62 Q32.9 70.62 29 61 Q25.1 70.62 29 70.62 Z M31.39 71.61 Q34.15 74.37 38.19 64.81 Q28.63 68.85 31.39 71.61 Z"/>
       <circle cx="29" cy="74" r="3.4" fill="var(--orn2,#B99C92)"/>
       <path fill="var(--orn2,#B99C92)" d="M20 132 Q35.36 136.58 45.95 124.56 Q30.6 119.97 20 132 Z"/>
       <path fill="var(--orn2,#B99C92)" d="M20 132 Q16.28 120.1 3.91 118.5 Q7.64 130.4 20 132 Z"/>
-      <path fill="currentColor" d="M20 132 Q23.61 123.32 18.43 117.08 Q14.66 124.27 20 132 Z"/>
-      <path fill="currentColor" d="M38.38 122 Q38.38 125.9 48 122 Q38.38 118.1 38.38 122 Z M37.39 124.39 Q34.63 127.15 44.19 131.19 Q40.15 121.63 37.39 124.39 Z M35 125.38 Q31.1 125.38 35 135 Q38.9 125.38 35 125.38 Z M32.61 124.39 Q29.85 121.63 25.81 131.19 Q35.37 127.15 32.61 124.39 Z M31.62 122 Q31.62 118.1 22 122 Q31.62 125.9 31.62 122 Z M32.61 119.61 Q35.37 116.85 25.81 112.81 Q29.85 122.37 32.61 119.61 Z M35 118.62 Q38.9 118.62 35 109 Q31.1 118.62 35 118.62 Z M37.39 119.61 Q40.15 122.37 44.19 112.81 Q34.63 116.85 37.39 119.61 Z"/>
+      <path fill="var(--railInk,#9C5560)" d="M20 132 Q23.61 123.32 18.43 117.08 Q14.66 124.27 20 132 Z"/>
+      <path fill="var(--railInk,#9C5560)" d="M38.38 122 Q38.38 125.9 48 122 Q38.38 118.1 38.38 122 Z M37.39 124.39 Q34.63 127.15 44.19 131.19 Q40.15 121.63 37.39 124.39 Z M35 125.38 Q31.1 125.38 35 135 Q38.9 125.38 35 125.38 Z M32.61 124.39 Q29.85 121.63 25.81 131.19 Q35.37 127.15 32.61 124.39 Z M31.62 122 Q31.62 118.1 22 122 Q31.62 125.9 31.62 122 Z M32.61 119.61 Q35.37 116.85 25.81 112.81 Q29.85 122.37 32.61 119.61 Z M35 118.62 Q38.9 118.62 35 109 Q31.1 118.62 35 118.62 Z M37.39 119.61 Q40.15 122.37 44.19 112.81 Q34.63 116.85 37.39 119.61 Z"/>
       <circle cx="35" cy="122" r="3.4" fill="var(--orn2,#B99C92)"/>
       <path fill="var(--orn2,#B99C92)" d="M46 180 Q47.5 195.96 62.62 201.28 Q61.12 185.32 46 180 Z"/>
       <path fill="var(--orn2,#B99C92)" d="M46 180 Q33.83 177.28 26.27 187.18 Q38.43 189.91 46 180 Z"/>
-      <path fill="currentColor" d="M46 180 Q40.66 187.73 44.43 194.92 Q49.61 188.68 46 180 Z"/>
-      <path fill="currentColor" d="M34.38 170 Q34.38 173.9 44 170 Q34.38 166.1 34.38 170 Z M33.39 172.39 Q30.63 175.15 40.19 179.19 Q36.15 169.63 33.39 172.39 Z M31 173.38 Q27.1 173.38 31 183 Q34.9 173.38 31 173.38 Z M28.61 172.39 Q25.85 169.63 21.81 179.19 Q31.37 175.15 28.61 172.39 Z M27.62 170 Q27.62 166.1 18 170 Q27.62 173.9 27.62 170 Z M28.61 167.61 Q31.37 164.85 21.81 160.81 Q25.85 170.37 28.61 167.61 Z M31 166.62 Q34.9 166.62 31 157 Q27.1 166.62 31 166.62 Z M33.39 167.61 Q36.15 170.37 40.19 160.81 Q30.63 164.85 33.39 167.61 Z"/>
+      <path fill="var(--railInk,#9C5560)" d="M46 180 Q40.66 187.73 44.43 194.92 Q49.61 188.68 46 180 Z"/>
+      <path fill="var(--railInk,#9C5560)" d="M34.38 170 Q34.38 173.9 44 170 Q34.38 166.1 34.38 170 Z M33.39 172.39 Q30.63 175.15 40.19 179.19 Q36.15 169.63 33.39 172.39 Z M31 173.38 Q27.1 173.38 31 183 Q34.9 173.38 31 173.38 Z M28.61 172.39 Q25.85 169.63 21.81 179.19 Q31.37 175.15 28.61 172.39 Z M27.62 170 Q27.62 166.1 18 170 Q27.62 173.9 27.62 170 Z M28.61 167.61 Q31.37 164.85 21.81 160.81 Q25.85 170.37 28.61 167.61 Z M31 166.62 Q34.9 166.62 31 157 Q27.1 166.62 31 166.62 Z M33.39 167.61 Q36.15 170.37 40.19 160.81 Q30.63 164.85 33.39 167.61 Z"/>
       <circle cx="31" cy="170" r="3.4" fill="var(--orn2,#B99C92)"/>
       <path fill="var(--orn2,#B99C92)" d="M18 228 Q33.36 232.58 43.95 220.56 Q28.6 215.97 18 228 Z"/>
       <path fill="var(--orn2,#B99C92)" d="M18 228 Q14.28 216.1 1.91 214.5 Q5.64 226.4 18 228 Z"/>
-      <path fill="currentColor" d="M18 228 Q21.61 219.32 16.43 213.08 Q12.66 220.27 18 228 Z"/>
-      <path fill="currentColor" d="M36.38 218 Q36.38 221.9 46 218 Q36.38 214.1 36.38 218 Z M35.39 220.39 Q32.63 223.15 42.19 227.19 Q38.15 217.63 35.39 220.39 Z M33 221.38 Q29.1 221.38 33 231 Q36.9 221.38 33 221.38 Z M30.61 220.39 Q27.85 217.63 23.81 227.19 Q33.37 223.15 30.61 220.39 Z M29.62 218 Q29.62 214.1 20 218 Q29.62 221.9 29.62 218 Z M30.61 215.61 Q33.37 212.85 23.81 208.81 Q27.85 218.37 30.61 215.61 Z M33 214.62 Q36.9 214.62 33 205 Q29.1 214.62 33 214.62 Z M35.39 215.61 Q38.15 218.37 42.19 208.81 Q32.63 212.85 35.39 215.61 Z"/>
+      <path fill="var(--railInk,#9C5560)" d="M18 228 Q21.61 219.32 16.43 213.08 Q12.66 220.27 18 228 Z"/>
+      <path fill="var(--railInk,#9C5560)" d="M36.38 218 Q36.38 221.9 46 218 Q36.38 214.1 36.38 218 Z M35.39 220.39 Q32.63 223.15 42.19 227.19 Q38.15 217.63 35.39 220.39 Z M33 221.38 Q29.1 221.38 33 231 Q36.9 221.38 33 221.38 Z M30.61 220.39 Q27.85 217.63 23.81 227.19 Q33.37 223.15 30.61 220.39 Z M29.62 218 Q29.62 214.1 20 218 Q29.62 221.9 29.62 218 Z M30.61 215.61 Q33.37 212.85 23.81 208.81 Q27.85 218.37 30.61 215.61 Z M33 214.62 Q36.9 214.62 33 205 Q29.1 214.62 33 214.62 Z M35.39 215.61 Q38.15 218.37 42.19 208.81 Q32.63 212.85 35.39 215.61 Z"/>
       <circle cx="33" cy="218" r="3.4" fill="var(--orn2,#B99C92)"/>
       <path fill="var(--orn2,#B99C92)" d="M40 272 Q41.5 287.96 56.62 293.28 Q55.12 277.32 40 272 Z"/>
       <path fill="var(--orn2,#B99C92)" d="M40 272 Q27.83 269.28 20.27 279.18 Q32.43 281.91 40 272 Z"/>
-      <path fill="currentColor" d="M40 272 Q34.66 279.73 38.43 286.92 Q43.61 280.68 40 272 Z"/>
-      <path fill="currentColor" d="M28.38 262 Q28.38 265.9 38 262 Q28.38 258.1 28.38 262 Z M27.39 264.39 Q24.63 267.15 34.19 271.19 Q30.15 261.63 27.39 264.39 Z M25 265.38 Q21.1 265.38 25 275 Q28.9 265.38 25 265.38 Z M22.61 264.39 Q19.85 261.63 15.81 271.19 Q25.37 267.15 22.61 264.39 Z M21.62 262 Q21.62 258.1 12 262 Q21.62 265.9 21.62 262 Z M22.61 259.61 Q25.37 256.85 15.81 252.81 Q19.85 262.37 22.61 259.61 Z M25 258.62 Q28.9 258.62 25 249 Q21.1 258.62 25 258.62 Z M27.39 259.61 Q30.15 262.37 34.19 252.81 Q24.63 256.85 27.39 259.61 Z"/>
+      <path fill="var(--railInk,#9C5560)" d="M40 272 Q34.66 279.73 38.43 286.92 Q43.61 280.68 40 272 Z"/>
+      <path fill="var(--railInk,#9C5560)" d="M28.38 262 Q28.38 265.9 38 262 Q28.38 258.1 28.38 262 Z M27.39 264.39 Q24.63 267.15 34.19 271.19 Q30.15 261.63 27.39 264.39 Z M25 265.38 Q21.1 265.38 25 275 Q28.9 265.38 25 265.38 Z M22.61 264.39 Q19.85 261.63 15.81 271.19 Q25.37 267.15 22.61 264.39 Z M21.62 262 Q21.62 258.1 12 262 Q21.62 265.9 21.62 262 Z M22.61 259.61 Q25.37 256.85 15.81 252.81 Q19.85 262.37 22.61 259.61 Z M25 258.62 Q28.9 258.62 25 249 Q21.1 258.62 25 258.62 Z M27.39 259.61 Q30.15 262.37 34.19 252.81 Q24.63 256.85 27.39 259.61 Z"/>
       <circle cx="25" cy="262" r="3.4" fill="var(--orn2,#B99C92)"/>
-      <path fill="currentColor" d="M40 14 Q46.35 8.7 44.45 1.78 Q38.54 5.86 40 14 Z"/>
-      <path fill="currentColor" d="M24 110 Q30.35 104.7 28.45 97.78 Q22.54 101.86 24 110 Z"/>
-      <path fill="currentColor" d="M42 206 Q48.35 200.7 46.45 193.78 Q40.54 197.86 42 206 Z"/>
-      <path fill="currentColor" d="M26 290 Q32.35 284.7 30.45 277.78 Q24.54 281.86 26 290 Z"/>
+      <path fill="var(--railInk,#9C5560)" d="M40 14 Q46.35 8.7 44.45 1.78 Q38.54 5.86 40 14 Z"/>
+      <path fill="var(--railInk,#9C5560)" d="M24 110 Q30.35 104.7 28.45 97.78 Q22.54 101.86 24 110 Z"/>
+      <path fill="var(--railInk,#9C5560)" d="M42 206 Q48.35 200.7 46.45 193.78 Q40.54 197.86 42 206 Z"/>
+      <path fill="var(--railInk,#9C5560)" d="M26 290 Q32.35 284.7 30.45 277.78 Q24.54 281.86 26 290 Z"/>
     </pattern>
     <pattern id="latticePat" width="54" height="54" patternUnits="userSpaceOnUse">
-      <path fill="none" stroke="currentColor" stroke-width="1.25" d="M19.21 7.96 L6.09 6.09 L7.96 19.21 L0 8.61 L-7.96 19.21 L-6.09 6.09 L-19.21 7.96 L-8.61 0 L-19.21 -7.96 L-6.09 -6.09 L-7.96 -19.21 L-0 -8.61 L7.96 -19.21 L6.09 -6.09 L19.21 -7.96 L8.61 -0 Z"/>
-      <path fill="none" stroke="currentColor" stroke-width="1.25" d="M73.21 7.96 L60.09 6.09 L61.96 19.21 L54 8.61 L46.04 19.21 L47.91 6.09 L34.79 7.96 L45.39 0 L34.79 -7.96 L47.91 -6.09 L46.04 -19.21 L54 -8.61 L61.96 -19.21 L60.09 -6.09 L73.21 -7.96 L62.61 -0 Z"/>
-      <path fill="none" stroke="currentColor" stroke-width="1.25" d="M19.21 61.96 L6.09 60.09 L7.96 73.21 L0 62.61 L-7.96 73.21 L-6.09 60.09 L-19.21 61.96 L-8.61 54 L-19.21 46.04 L-6.09 47.91 L-7.96 34.79 L-0 45.39 L7.96 34.79 L6.09 47.91 L19.21 46.04 L8.61 54 Z"/>
-      <path fill="none" stroke="currentColor" stroke-width="1.25" d="M73.21 61.96 L60.09 60.09 L61.96 73.21 L54 62.61 L46.04 73.21 L47.91 60.09 L34.79 61.96 L45.39 54 L34.79 46.04 L47.91 47.91 L46.04 34.79 L54 45.39 L61.96 34.79 L60.09 47.91 L73.21 46.04 L62.61 54 Z"/>
-      <path fill="none" stroke="currentColor" stroke-width="1.25" d="M46.21 34.96 L33.09 33.09 L34.96 46.21 L27 35.61 L19.04 46.21 L20.91 33.09 L7.79 34.96 L18.39 27 L7.79 19.04 L20.91 20.91 L19.04 7.79 L27 18.39 L34.96 7.79 L33.09 20.91 L46.21 19.04 L35.61 27 Z"/>
+      <path fill="none" stroke="var(--railInk,#9C5560)" stroke-width="1.25" d="M19.21 7.96 L6.09 6.09 L7.96 19.21 L0 8.61 L-7.96 19.21 L-6.09 6.09 L-19.21 7.96 L-8.61 0 L-19.21 -7.96 L-6.09 -6.09 L-7.96 -19.21 L-0 -8.61 L7.96 -19.21 L6.09 -6.09 L19.21 -7.96 L8.61 -0 Z"/>
+      <path fill="none" stroke="var(--railInk,#9C5560)" stroke-width="1.25" d="M73.21 7.96 L60.09 6.09 L61.96 19.21 L54 8.61 L46.04 19.21 L47.91 6.09 L34.79 7.96 L45.39 0 L34.79 -7.96 L47.91 -6.09 L46.04 -19.21 L54 -8.61 L61.96 -19.21 L60.09 -6.09 L73.21 -7.96 L62.61 -0 Z"/>
+      <path fill="none" stroke="var(--railInk,#9C5560)" stroke-width="1.25" d="M19.21 61.96 L6.09 60.09 L7.96 73.21 L0 62.61 L-7.96 73.21 L-6.09 60.09 L-19.21 61.96 L-8.61 54 L-19.21 46.04 L-6.09 47.91 L-7.96 34.79 L-0 45.39 L7.96 34.79 L6.09 47.91 L19.21 46.04 L8.61 54 Z"/>
+      <path fill="none" stroke="var(--railInk,#9C5560)" stroke-width="1.25" d="M73.21 61.96 L60.09 60.09 L61.96 73.21 L54 62.61 L46.04 73.21 L47.91 60.09 L34.79 61.96 L45.39 54 L34.79 46.04 L47.91 47.91 L46.04 34.79 L54 45.39 L61.96 34.79 L60.09 47.91 L73.21 46.04 L62.61 54 Z"/>
+      <path fill="none" stroke="var(--railInk,#9C5560)" stroke-width="1.25" d="M46.21 34.96 L33.09 33.09 L34.96 46.21 L27 35.61 L19.04 46.21 L20.91 33.09 L7.79 34.96 L18.39 27 L7.79 19.04 L20.91 20.91 L19.04 7.79 L27 18.39 L34.96 7.79 L33.09 20.91 L46.21 19.04 L35.61 27 Z"/>
       <path fill="none" stroke="var(--orn2,#B99C92)" stroke-width="1" d="M27 -5.83 L32.83 0 L27 5.83 L21.17 0 Z"/>
       <path fill="none" stroke="var(--orn2,#B99C92)" stroke-width="1" d="M0 21.17 L5.83 27 L0 32.83 L-5.83 27 Z"/>
       <path fill="none" stroke="var(--orn2,#B99C92)" stroke-width="1" d="M54 21.17 L59.83 27 L54 32.83 L48.17 27 Z"/>
@@ -439,27 +439,6 @@ a.btn:focus-visible,button.btn:focus-visible,button:focus-visible,input:focus-vi
   <symbol id="archFull" viewBox="0 0 300 520" preserveAspectRatio="none">
     <path fill="none" stroke="currentColor" stroke-width="1.6" vector-effect="non-scaling-stroke" d="M0 520 L0 205 Q27.5 182.7 7 153.8 Q39.4 139.7 27.3 106.4 Q62.4 101.4 59.7 66.1 Q94.8 70.7 101.6 35.9 Q134.2 49.7 150 18 Q165.8 49.7 198.4 35.9 Q205.2 70.7 240.3 66.1 Q237.6 101.4 272.7 106.4 Q260.6 139.7 293 153.8 Q272.5 182.7 300 205 L300 520"/>
     <path fill="none" stroke="currentColor" stroke-width=".8" opacity=".7" vector-effect="non-scaling-stroke" transform="translate(13,0)" d="M0 520 L0 201 Q23.4 180.5 6.4 154.5 Q34.4 141.1 25 111.5 Q55.6 106.1 54.6 75 Q85.5 78.1 92.8 47.9 Q121.8 59.1 137 32 Q152.2 59.1 181.2 47.9 Q188.5 78.1 219.4 75 Q218.4 106.1 249 111.5 Q239.6 141.1 267.6 154.5 Q250.6 180.5 274 201 L274 520"/>
-  </symbol>
-  <symbol id="medal" viewBox="0 0 120 120">
-    <g fill="none" stroke="currentColor">
-      <circle cx="60" cy="60" r="57" stroke-width=".9"/>
-      <circle cx="60" cy="60" r="43" stroke-width="1.5"/>
-      <circle cx="60" cy="60" r="39" stroke-width=".7" stroke-dasharray="1.5 4"/>
-    </g>
-    <g fill="currentColor" opacity=".9">
-      <ellipse cx="60" cy="9" rx="3.4" ry="7.5"/>
-      <ellipse cx="60" cy="9" rx="3.4" ry="7.5" transform="rotate(30 60 60)"/>
-      <ellipse cx="60" cy="9" rx="3.4" ry="7.5" transform="rotate(60 60 60)"/>
-      <ellipse cx="60" cy="9" rx="3.4" ry="7.5" transform="rotate(90 60 60)"/>
-      <ellipse cx="60" cy="9" rx="3.4" ry="7.5" transform="rotate(120 60 60)"/>
-      <ellipse cx="60" cy="9" rx="3.4" ry="7.5" transform="rotate(150 60 60)"/>
-      <ellipse cx="60" cy="9" rx="3.4" ry="7.5" transform="rotate(180 60 60)"/>
-      <ellipse cx="60" cy="9" rx="3.4" ry="7.5" transform="rotate(210 60 60)"/>
-      <ellipse cx="60" cy="9" rx="3.4" ry="7.5" transform="rotate(240 60 60)"/>
-      <ellipse cx="60" cy="9" rx="3.4" ry="7.5" transform="rotate(270 60 60)"/>
-      <ellipse cx="60" cy="9" rx="3.4" ry="7.5" transform="rotate(300 60 60)"/>
-      <ellipse cx="60" cy="9" rx="3.4" ry="7.5" transform="rotate(330 60 60)"/>
-    </g>
   </symbol>
   <symbol id="filigree" viewBox="0 0 100 100">
     <g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -632,7 +611,7 @@ a.btn:focus-visible,button.btn:focus-visible,button:focus-visible,input:focus-vi
   <div class="gap-l"></div>
   <p class="deva devaSmall">&#2405; &#2384; &#2358;&#2381;&#2352;&#2368; &#2327;&#2339;&#2375;&#2358;&#2366;&#2351; &#2344;&#2350;&#2307; &#2405;</p>
   <div class="gap-m"></div>
-  <div class="medallion"><svg><use href="#medal"/></svg><span>&#2384;</span></div>
+  <img class="ganesh" src="assets/ganesh.webp" alt="Shri Ganesha" decoding="async">
   <div class="gap-m"></div>
   <p class="deva shloka">&#2357;&#2325;&#2381;&#2352;&#2340;&#2369;&#2339;&#2381;&#2337; &#2350;&#2361;&#2366;&#2325;&#2366;&#2351; &#2360;&#2370;&#2352;&#2381;&#2351;&#2325;&#2379;&#2335;&#2367; &#2360;&#2350;&#2346;&#2381;&#2352;&#2349;&#2307; &#2404;<br>&#2344;&#2367;&#2352;&#2381;&#2357;&#2367;&#2328;&#2381;&#2344;&#2306; &#2325;&#2369;&#2352;&#2369; &#2350;&#2375; &#2342;&#2375;&#2357; &#2360;&#2352;&#2381;&#2357;&#2325;&#2366;&#2352;&#2381;&#2351;&#2375;&#2359;&#2369; &#2360;&#2352;&#2381;&#2357;&#2342;&#2366; &#2405;</p>
   <div class="gap-l"></div>
@@ -947,7 +926,7 @@ a.btn:focus-visible,button.btn:focus-visible,button:focus-visible,input:focus-vi
       for (var j = 0; j < sec.children.length; j++) {
         var c = sec.children[j], cl = c.classList;
         /* the arch frame carries its own centring transform; reveal must not touch it */
-        if (cl.contains('archframe')) continue;
+        if (cl.contains('archframe') || cl.contains('cornerVine')) continue;
         if (cl.contains('gap-s') || cl.contains('gap-m') || cl.contains('gap-l')) continue;
         if (cl.contains('count') || cl.contains('calls')) {
           for (var m = 0; m < c.children.length; m++) kids.push(c.children[m]);
@@ -993,7 +972,9 @@ a.btn:focus-visible,button.btn:focus-visible,button:focus-visible,input:focus-vi
     if (!sec) return;
     var cs = getComputedStyle(sec);
     if (cv) cv.style.filter = cs.getPropertyValue('--bloomTint').trim() || 'none';
-    if (ornf) ornf.style.color = cs.getPropertyValue('--gold').trim() || '';
+    var g = cs.getPropertyValue('--gold').trim();
+    if (ornf && g) ornf.style.color = g;
+    if (g) document.documentElement.style.setProperty('--railInk', g);
   }
   if (!reduce && cv.getContext) {
     var g = cv.getContext('2d'), petals = [], W = 0, H = 0;
@@ -1041,8 +1022,12 @@ a.btn:focus-visible,button.btn:focus-visible,button:focus-visible,input:focus-vi
   }
 
   /* ---------- the song ----------
-     preload is "none" on purpose: the file is several megabytes and only
-     downloads once a guest actually turns the sound on. */
+     Two things matter here. The element is built as soon as the page loads, so
+     it is already buffering while the reader is still looking at the seal. And
+     the pill follows the `playing` event, not the play() promise: with a file
+     this size that promise can sit unsettled long after sound has started, and
+     the volume used to be raised only in its callback - so the track played at
+     volume 0 and the invitation seemed silent. */
   var btn = document.getElementById('sound');
   var label = document.getElementById('soundLabel');
   var audio = null, fader = null, playing = false, pending = false;
@@ -1053,12 +1038,28 @@ a.btn:focus-visible,button.btn:focus-visible,button:focus-visible,input:focus-vi
     btn.setAttribute('aria-pressed', on ? 'true' : 'false');
     label.textContent = on ? 'Sound on' : 'Sound off';
   }
+  function onPlaying() {
+    if (playing) return;
+    pending = false;
+    playing = true;
+    setBtn(true);
+    fadeTo(0.6, 900);
+  }
+  function refused() {
+    if (playing) return;
+    pending = false;
+    setBtn(false);
+    /* the browser refused playback no gesture asked for; wait for the
+       reader's very next tap or key and start then */
+    if (!userMuted) armAutoplay();
+  }
   function makeAudio() {
     if (audio) return audio;
     audio = new Audio();
     audio.loop = true;
-    audio.preload = 'none';
+    audio.preload = 'auto';
     audio.volume = 0;
+    audio.addEventListener('playing', onPlaying);
     audio.src = 'assets/tumpremho.mp3';
     return audio;
   }
@@ -1066,7 +1067,7 @@ a.btn:focus-visible,button.btn:focus-visible,button:focus-visible,input:focus-vi
     if (fader) { clearInterval(fader); fader = null; }
     var a = audio;
     if (!a) return;
-    var from = a.volume, steps = Math.max(1, Math.round(ms / 60)), i = 0;
+    var from = a.volume, steps = Math.max(1, Math.round(ms / 50)), i = 0;
     fader = setInterval(function () {
       i++;
       var v = from + (target - from) * (i / steps);
@@ -1075,7 +1076,7 @@ a.btn:focus-visible,button.btn:focus-visible,button:focus-visible,input:focus-vi
         clearInterval(fader); fader = null;
         if (target === 0) { try { a.pause(); } catch (e) {} }
       }
-    }, 60);
+    }, 50);
   }
   function startAudio() {
     if (playing || pending) return;
@@ -1083,18 +1084,12 @@ a.btn:focus-visible,button.btn:focus-visible,button:focus-visible,input:focus-vi
     pending = true;
     var promise;
     try { promise = a.play(); } catch (e) { promise = null; }
-    /* a wheel or a scroll is not a user gesture, so autoplay can be refused.
-       The pill only lights up once playback really started, otherwise it
-       would read "Sound on" in silence and the first tap would turn it off. */
-    var started = function () { pending = false; playing = true; setBtn(true); fadeTo(0.55, 2600); };
-    var refused = function () {
-      pending = false; playing = false; setBtn(false);
-      /* the browser refused playback no gesture asked for. Rather than give
-         up, wait for the reader's very next tap or key and start then. */
-      if (!userMuted) armAutoplay();
-    };
-    if (promise && promise.then) promise.then(started, refused);
-    else started();
+    if (promise && promise.then) promise.then(onPlaying, refused);
+    /* belt and braces: if neither the event nor the promise ever lands but the
+       element is in fact running, raise the volume anyway rather than play mute */
+    setTimeout(function () {
+      if (pending && audio && !audio.paused) onPlaying();
+    }, 2500);
   }
   function armAutoplay() {
     if (armed) return;
@@ -1114,8 +1109,9 @@ a.btn:focus-visible,button.btn:focus-visible,button:focus-visible,input:focus-vi
     if (!playing) return;
     playing = false;
     setBtn(false);
-    fadeTo(0, 900);
+    fadeTo(0, 700);
   }
+  makeAudio();   /* buffer now, while the seal is still on screen */
   btn.addEventListener('click', function () {
     if (playing) { userMuted = true; stopAudio(); }
     else { userMuted = false; startAudio(); }

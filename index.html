@@ -223,6 +223,9 @@ a.btn:focus-visible,button.btn:focus-visible,button:focus-visible,input:focus-vi
 :root.opened #sound{display:flex}
 #sound .bars{display:flex;align-items:flex-end;gap:2px;height:10px}
 #sound .bars i{width:2px;background:#F3DED8;height:3px;display:block;border-radius:1px}
+/* audio cannot start from a scroll - no browser allows it - so when playback
+   is waiting on a real tap, the pill says so and breathes to catch the eye */
+#sound.needs-tap{animation:breathe 2.4s ease-in-out infinite;border-color:rgba(240,214,208,.85)}
 #sound.on .bars i{animation:eq .9s ease-in-out infinite}
 #sound.on .bars i:nth-child(2){animation-delay:.15s}
 #sound.on .bars i:nth-child(3){animation-delay:.3s}
@@ -817,9 +820,10 @@ a.btn:focus-visible,button.btn:focus-visible,button:focus-visible,input:focus-vi
   var btn = document.getElementById('sound');
   var label = document.getElementById('soundLabel');
   var audio = null, fader = null, playing = false, pending = false;
-  var userMuted = false, armed = false;
+  var userMuted = false, armed = false, wanted = false;
 
   function setBtn(on) {
+    if (on) btn.classList.remove('needs-tap');
     btn.classList.toggle('on', on);
     btn.setAttribute('aria-pressed', on ? 'true' : 'false');
     label.textContent = on ? 'Sound on' : 'Sound off';
@@ -828,6 +832,7 @@ a.btn:focus-visible,button.btn:focus-visible,button:focus-visible,input:focus-vi
     if (playing) return;
     pending = false;
     playing = true;
+    if (audio) audio.muted = false;
     setBtn(true);
     fadeTo(0.6, 900);
   }
@@ -835,9 +840,13 @@ a.btn:focus-visible,button.btn:focus-visible,button:focus-visible,input:focus-vi
     if (playing) return;
     pending = false;
     setBtn(false);
-    /* the browser refused playback no gesture asked for; wait for the
-       reader's very next tap or key and start then */
-    if (!userMuted) armAutoplay();
+    /* playback was refused. Say so in words a guest can act on, and start on
+       their very next tap or key press. */
+    if (!userMuted) {
+      label.textContent = 'Tap for sound';
+      btn.classList.add('needs-tap');
+      armAutoplay();
+    }
   }
   function makeAudio() {
     if (audio) return audio;
@@ -845,7 +854,13 @@ a.btn:focus-visible,button.btn:focus-visible,button:focus-visible,input:focus-vi
     audio.loop = true;
     audio.preload = 'auto';
     audio.volume = 0;
+    audio.setAttribute('playsinline', '');
     audio.addEventListener('playing', onPlaying);
+    /* if the first attempt came before the file was ready, try again the
+       moment it is - as long as the reader has not muted it on purpose */
+    audio.addEventListener('canplay', function () {
+      if (!playing && !userMuted && wanted) startAudio();
+    });
     audio.src = 'assets/tumpremho.mp3';
     return audio;
   }
@@ -865,17 +880,24 @@ a.btn:focus-visible,button.btn:focus-visible,button:focus-visible,input:focus-vi
     }, 50);
   }
   function startAudio() {
+    wanted = true;
     if (playing || pending) return;
     var a = makeAudio();
     pending = true;
+    /* Start MUTED. A muted track is always allowed to play, whatever the
+       embedding page's autoplay policy says, so this gets the element
+       running; the unmute then happens inside the same gesture and sticks. */
+    a.muted = true;
     var promise;
     try { promise = a.play(); } catch (e) { promise = null; }
-    if (promise && promise.then) promise.then(onPlaying, refused);
-    /* belt and braces: if neither the event nor the promise ever lands but the
-       element is in fact running, raise the volume anyway rather than play mute */
+    var running = function () { a.muted = false; onPlaying(); };
+    if (promise && promise.then) promise.then(running, refused);
+    else running();
+    /* if neither the promise nor the event lands but the element is in fact
+       running, unmute anyway rather than play silently */
     setTimeout(function () {
-      if (pending && audio && !audio.paused) onPlaying();
-    }, 2500);
+      if (pending && audio && !audio.paused) running();
+    }, 1500);
   }
   function armAutoplay() {
     if (armed) return;
@@ -899,7 +921,7 @@ a.btn:focus-visible,button.btn:focus-visible,button:focus-visible,input:focus-vi
   }
   makeAudio();   /* buffer now, while the seal is still on screen */
   btn.addEventListener('click', function () {
-    if (playing) { userMuted = true; stopAudio(); }
+    if (playing) { userMuted = true; wanted = false; stopAudio(); }
     else { userMuted = false; startAudio(); }
   });
 

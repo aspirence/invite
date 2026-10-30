@@ -144,17 +144,7 @@ main{position:relative;z-index:2}
 .band.open{min-height:100svh}
 .gap-s{height:8px}.gap-m{height:18px}.gap-l{height:32px}
 
-/* the title page sits inside a full arch; the passages after it run open.
-   Extra side padding keeps the words clear of the arch's own line. */
-.band.open{position:relative;
-  padding-left:max(44px, env(safe-area-inset-left, 0px));
-  padding-right:max(44px, env(safe-area-inset-right, 0px))}
-/* an <svg> is a replaced element: with top+bottom but height:auto the browser
-   drops `bottom` and uses the 150px default, squashing the arch. Height is explicit. */
-.archframe{position:absolute;top:16px;left:50%;transform:translateX(-50%);
-  width:min(392px,calc(100% - 18px));height:calc(100% - 32px);
-  color:var(--gold);z-index:0;pointer-events:none}
-.band.open>*:not(.archframe){position:relative;z-index:1}
+.band.open>*{position:relative;z-index:1}
 
 .deva{font-family:var(--f-dev);color:var(--ink);line-height:1.95}
 .devaSmall{font-size:.84rem}
@@ -288,10 +278,6 @@ a.btn:focus-visible,button.btn:focus-visible,button:focus-visible,input:focus-vi
       <circle cx="20" cy="20" r="3.2" fill="var(--orn2,#B99C92)"/>
   </symbol>
 
-  <symbol id="archFull" viewBox="0 0 300 520" preserveAspectRatio="none">
-    <path fill="none" stroke="currentColor" stroke-width="1.6" vector-effect="non-scaling-stroke" d="M0 520 L0 205 Q27.5 182.7 7 153.8 Q39.4 139.7 27.3 106.4 Q62.4 101.4 59.7 66.1 Q94.8 70.7 101.6 35.9 Q134.2 49.7 150 18 Q165.8 49.7 198.4 35.9 Q205.2 70.7 240.3 66.1 Q237.6 101.4 272.7 106.4 Q260.6 139.7 293 153.8 Q272.5 182.7 300 205 L300 520"/>
-    <path fill="none" stroke="currentColor" stroke-width=".8" opacity=".7" vector-effect="non-scaling-stroke" transform="translate(13,0)" d="M0 520 L0 201 Q23.4 180.5 6.4 154.5 Q34.4 141.1 25 111.5 Q55.6 106.1 54.6 75 Q85.5 78.1 92.8 47.9 Q121.8 59.1 137 32 Q152.2 59.1 181.2 47.9 Q188.5 78.1 219.4 75 Q218.4 106.1 249 111.5 Q239.6 141.1 267.6 154.5 Q250.6 180.5 274 201 L274 520"/>
-  </symbol>
   <symbol id="lotus" viewBox="0 0 48 30">
     <g fill="none" stroke="currentColor" stroke-width="1.2">
       <path d="M24 28c-2.6-5-2.6-10 0-15 2.6 5 2.6 10 0 15z"/>
@@ -410,7 +396,6 @@ a.btn:focus-visible,button.btn:focus-visible,button:focus-visible,input:focus-vi
 <main>
 
 <section class="band ivory open" data-label="Invitation" aria-labelledby="h1">
-  <svg class="archframe" aria-hidden="true" preserveAspectRatio="none"><use href="#archFull"/></svg>
   <p class="eyebrow">To</p>
   <div class="gap-s"></div>
   <p class="script" style="font-size:1.75rem" data-guest data-default="Mrs. &amp; Mr.">Mrs. &amp; Mr.</p>
@@ -730,8 +715,6 @@ a.btn:focus-visible,button.btn:focus-visible,button:focus-visible,input:focus-vi
       var kids = [], n = 0;
       for (var j = 0; j < sec.children.length; j++) {
         var c = sec.children[j], cl = c.classList;
-        /* the arch frame carries its own centring transform; reveal must not touch it */
-        if (cl.contains('archframe')) continue;
         if (cl.contains('gap-s') || cl.contains('gap-m') || cl.contains('gap-l')) continue;
         if (cl.contains('count') || cl.contains('calls')) {
           for (var m = 0; m < c.children.length; m++) kids.push(c.children[m]);

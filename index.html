@@ -2,14 +2,14 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Marcellus&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Tiro+Devanagari+Hindi&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Marcellus&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Tiro+Devanagari+Hindi&display=swap">
 
 <style>
 /* Layout: one unbroken scroll. The scenery sits in a fixed backdrop whose
    layers crossfade as you move down, so the palette changes under the words
    instead of the page breaking into separate cards. */
 :root{
-  --f-script:'Great Vibes','Snell Roundhand',cursive;
+  --f-script:'Pinyon Script','Snell Roundhand','Apple Chancery',cursive;
   --f-disp:'Marcellus',Optima,Georgia,serif;
   --f-body:'EB Garamond',Georgia,'Times New Roman',serif;
   --f-dev:'Tiro Devanagari Hindi','Nirmala UI','Noto Sans Devanagari',serif;
@@ -162,10 +162,10 @@ main{position:relative;z-index:2}
 
 .ganesh{width:min(138px,36%);height:auto;display:block}
 
-.script{font-family:var(--f-script);color:var(--ink);line-height:1.18;font-weight:400}
-.title{font-size:clamp(2.4rem,11.5vw,3.4rem)}
-.name{font-size:clamp(2.6rem,13vw,3.7rem)}
-.evt{font-size:clamp(2.2rem,12.5vw,3.4rem)}
+.script{font-family:var(--f-script);color:var(--ink);line-height:1.2;font-weight:400;padding-inline:.2em}
+.title{font-size:clamp(2.2rem,10.6vw,3.1rem)}
+.name{font-size:clamp(2.8rem,14vw,4rem)}
+.evt{font-size:clamp(2rem,11vw,3rem)}
 .weds{font-family:var(--f-script);font-size:1.9rem;color:var(--leaf);line-height:1}
 
 .caps{font-family:var(--f-disp);font-size:.78rem;letter-spacing:.17em;text-transform:uppercase;color:var(--inkSoft)}
@@ -262,24 +262,12 @@ a.btn:focus-visible,button.btn:focus-visible,button:focus-visible,input:focus-vi
 .opener-in .mono{font-family:var(--f-script);font-size:clamp(2.5rem,12vw,3.4rem);line-height:1.15;margin:0;color:#7A2433}
 .opener-in .mono em{font-family:var(--f-body);font-style:italic;font-size:.33em;color:#7E9A6B;padding:0 .3em;vertical-align:.4em}
 .opener-in .date{font-family:var(--f-disp);font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:#9A5862;margin:14px 0 34px}
-.seal{position:relative;width:112px;height:112px;border:0;padding:0;cursor:pointer;border-radius:50%;background:transparent}
-.seal .wax{position:absolute;inset:0;border-radius:50%;display:grid;place-items:center;
-  background:radial-gradient(60% 55% at 36% 30%,#9E3A4C 0%,#7B2B3B 38%,#58182A 76%,#3F0F1E 100%);
-  box-shadow:0 10px 24px -10px rgba(63,15,30,.8), inset 0 -4px 10px rgba(45,8,18,.7), inset 0 4px 10px rgba(216,139,150,.35);
-  transition:transform .8s cubic-bezier(.2,.9,.25,1), opacity .6s ease}
-.seal .notch{position:absolute;inset:-7px;color:#9C5560;opacity:.9;transition:transform .9s ease,opacity .6s ease}
-.seal .notch svg{display:block;width:100%;height:100%}
-.seal .shri{font-family:var(--f-dev);font-size:2rem;line-height:1;color:#F2DCD6}
-.seal .halo{position:absolute;inset:-17px;border-radius:50%;border:1px solid rgba(156,85,96,.5);animation:halo 2.8s ease-out infinite}
-@keyframes halo{0%{transform:scale(.92);opacity:.9}70%{transform:scale(1.18);opacity:0}100%{opacity:0}}
-.seal:hover .wax{transform:scale(1.05)}
-.seal:focus-visible{outline:2px solid #7A2433;outline-offset:8px}
-:root.opened .seal .wax{transform:scale(2.4) rotate(14deg);opacity:0}
-:root.opened .seal .notch{transform:scale(1.9) rotate(-22deg);opacity:0}
-:root.opened .seal .halo{opacity:0}
-.tap{font-family:var(--f-disp);font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:#9C5560;margin:24px 0 0;animation:breathe 2.6s ease-in-out infinite}
+.tap{font-family:var(--f-disp);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;
+  color:#9C5560;margin:34px 0 0;border:0;background:transparent;cursor:pointer;padding:10px 6px;
+  animation:breathe 2.6s ease-in-out infinite}
+.tap:focus-visible{outline:2px solid #7A2433;outline-offset:4px;border-radius:2px}
 @keyframes breathe{0%,100%{opacity:.55}50%{opacity:1}}
-:root.opened .opener-in>*:not(.seal){opacity:0;transform:translateY(-10px);transition:opacity .5s ease,transform .6s ease}
+:root.opened .opener-in>*{opacity:0;transform:translateY(-10px);transition:opacity .5s ease,transform .6s ease}
 
 /* ---------------- reveal: the hidden state is set by script, never in the base CSS ---------------- */
 .will-reveal{opacity:0;transform:translateY(20px)}
@@ -408,16 +396,7 @@ a.btn:focus-visible,button.btn:focus-visible,button:focus-visible,input:focus-vi
     <p class="who" data-guest data-default="Our Dear Guest">Our Dear Guest</p>
     <p class="mono">Saharsh <em>weds</em> Shreya</p>
     <p class="date">Saturday, 21 November 2026 &middot; Lucknow</p>
-    <button class="seal" id="sealBtn" type="button" aria-label="Break the seal and open the invitation">
-      <span class="halo" aria-hidden="true"></span>
-      <span class="notch" aria-hidden="true">
-        <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.1">
-          <circle cx="50" cy="50" r="48"/><circle cx="50" cy="50" r="44" stroke-dasharray="2 5"/>
-        </svg>
-      </span>
-      <span class="wax" aria-hidden="true"><span class="shri">&#2358;&#2381;&#2352;&#2368;</span></span>
-    </button>
-    <p class="tap">Tap the seal or scroll to open &#9834;</p>
+    <button class="tap" id="sealBtn" type="button">Tap anywhere or scroll to open &#9834;</button>
   </div>
 </div>
 

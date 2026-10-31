@@ -23,7 +23,12 @@
   color-scheme: light;
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
+/* Each scroll should come to rest on a passage rather than between two.
+   mandatory only where the screen is tall enough to hold a whole passage -
+   below that it falls back to proximity, so a short screen can still be
+   scrolled freely through a passage taller than itself. */
+html{scroll-behavior:smooth;scroll-snap-type:y proximity}
+@media (min-height:660px){ html{scroll-snap-type:y mandatory} }
 body{margin:0;font-family:var(--f-body);font-size:1rem;line-height:1.6;background:#D8B5B3;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 .sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 
@@ -255,6 +260,7 @@ main{position:relative;z-index:2}
      a tall one - at 1363px high these bands ran 1172px for 305px of writing,
      three quarters of it empty. The px cap holds the measure steady instead. */
   min-height:min(84svh,596px);justify-content:center;
+  scroll-snap-align:center;scroll-snap-stop:always;
   color:var(--inkSoft);
 }
 .band>*{margin:0;max-width:100%}

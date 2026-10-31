@@ -264,7 +264,11 @@ main{position:relative;z-index:2}
   color:var(--inkSoft);
 }
 .band>*{margin:0;max-width:100%}
-.band.open{min-height:min(96svh,752px)}
+/* The first and last passages cannot be centred: their centres fall above
+   scrollY 0 and below the last scrollable pixel, so with mandatory snapping
+   the browser skips straight past them. They align to the ends instead. */
+.band.open{min-height:min(96svh,752px);scroll-snap-align:start}
+.band:last-of-type{scroll-snap-align:end}
 .gap-s{height:8px}.gap-m{height:18px}.gap-l{height:32px}
 /* The opening passage is the one a guest lingers on, so its stops open up -
    but only where the screen is tall enough that the extra height does not

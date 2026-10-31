@@ -1208,12 +1208,13 @@ a.btn:focus-visible,button.btn:focus-visible,button:focus-visible,input:focus-vi
 
   /* ---------- breaking the seal ---------- */
   var opener = document.getElementById('opener');
-  function openCard(keepPlace) {
+  function openCard() {
     if (root.classList.contains('opened')) return;
     root.classList.add('opened');
-    /* a tap starts the invitation from the top; a scroll carries on from
-       wherever the reader already was, so the gesture is not fought */
-    if (!keepPlace) window.scrollTo(0, 0);
+    /* However it was opened, the invitation begins at its title passage.
+       Letting a scroll carry through meant the gesture that broke the seal
+       also carried the reader past the first passage entirely. */
+    window.scrollTo(0, 0);
     dropOpenGestures();
     measure();
     if (startReveal) startReveal();
@@ -1221,15 +1222,22 @@ a.btn:focus-visible,button.btn:focus-visible,button:focus-visible,input:focus-vi
     setTimeout(function () { opener.setAttribute('aria-hidden', 'true'); measure(); paintScroll(); }, reduce ? 50 : 1400);
     startAudio();   /* a seal tap is a real gesture, so this plays at once */
   }
-  opener.addEventListener('click', function () { openCard(false); });
+  opener.addEventListener('click', function () { openCard(); });
 
-  /* scrolling, swiping or paging down opens it just as the seal does */
-  function openByGesture() { openCard(true); }
-  function openByScrollbar() { if (window.pageYOffset > 6) openCard(true); }
+  /* Scrolling, swiping or paging down opens it just as the seal does. The
+     wheel and touch listeners are deliberately NOT passive: the gesture that
+     breaks the seal is swallowed, so it opens the invitation without also
+     scrolling it, and the reader lands on the title passage. */
+  function openByGesture(e) {
+    if (e && e.cancelable) e.preventDefault();
+    openCard();
+  }
+  function openByScrollbar() { if (window.pageYOffset > 6) openCard(); }
   function openByKey(e) {
     var k = e.key;
     if (k === 'ArrowDown' || k === 'PageDown' || k === 'End' || k === ' ' || k === 'Spacebar') {
-      openCard(true);
+      if (e.cancelable) e.preventDefault();
+      openCard();
     }
   }
   function dropOpenGestures() {
@@ -1238,8 +1246,8 @@ a.btn:focus-visible,button.btn:focus-visible,button:focus-visible,input:focus-vi
     window.removeEventListener('scroll', openByScrollbar);
     window.removeEventListener('keydown', openByKey);
   }
-  window.addEventListener('wheel', openByGesture, { passive: true });
-  window.addEventListener('touchmove', openByGesture, { passive: true });
+  window.addEventListener('wheel', openByGesture, { passive: false });
+  window.addEventListener('touchmove', openByGesture, { passive: false });
   window.addEventListener('keydown', openByKey);
   /* armed late so a scroll position restored on reload does not trip it */
   setTimeout(function () {

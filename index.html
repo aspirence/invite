@@ -113,12 +113,6 @@ body{margin:0;font-family:var(--f-body);font-size:1rem;line-height:1.6;backgroun
 .sangeet .bokeh,.reception .bokeh{opacity:.9;animation:twinkle 7s ease-in-out infinite}
 @keyframes twinkle{0%,100%{filter:brightness(1)}50%{filter:brightness(1.45)}}
 /* real roses, cut from the photographs; each palette tints its own copy */
-.garland{position:absolute;left:50%;bottom:-3%;transform:translateX(-50%);
-  width:min(560px,104%);height:auto;filter:var(--bloomTint,none);
-  /* the topmost leaves fade out, so where the swag reaches a line of text
-     the words stay legible instead of sitting on painted foliage */
-  -webkit-mask-image:linear-gradient(to top,#000 68%,rgba(0,0,0,0) 100%);
-  mask-image:linear-gradient(to top,#000 68%,rgba(0,0,0,0) 100%)}
 /* painted corner sprays; the 180deg turn puts their blooms in the corner
    and lets the foliage trail inward, so no mask is needed */
 .corner{position:absolute;top:0;width:min(208px,44%);height:auto;
@@ -164,7 +158,6 @@ body{margin:0;font-family:var(--f-body);font-size:1rem;line-height:1.6;backgroun
 /* The lamps stand 12% in from each edge of that column, so a swag at 84% of it
    reaches across the gap and over both pedestals, the way the reference sets
    its flowers against the lamps. */
-.mandap .garland{width:min(104%,calc(var(--col) * .78))}
 .arena>*{position:absolute}
 
 /* rangoli laid on the floor, read as rings rather than drawn petal by petal */
@@ -330,12 +323,6 @@ a.btn:focus-visible,button.btn:focus-visible,button:focus-visible,input:focus-vi
 .people .sep{color:var(--gold);padding:0 .3em}
 .fam{font-family:var(--f-script);font-size:1.5rem;color:var(--ink);display:block;margin-top:6px}
 
-.personal{width:100%;max-width:330px}
-.personal .ipt{display:flex;gap:8px;flex-wrap:wrap}
-#guestName{flex:1;min-width:0;background:rgba(255,255,255,.4);border:1px solid var(--gold);border-radius:2px;color:var(--ink);font-family:var(--f-body);font-size:.95rem;padding:10px 12px}
-#guestName::placeholder{color:var(--inkFaint)}
-.tagline{font-size:.9rem;color:var(--inkSoft);margin-top:12px}
-.tagline code{font-family:var(--f-disp);letter-spacing:.04em;color:var(--ink);background:rgba(255,255,255,.4);border:1px solid var(--gold);border-radius:2px;padding:2px 7px;user-select:all;word-break:break-all}
 
 /* ---------------- fixed controls ---------------- */
 #dots{position:fixed;z-index:50;top:50%;transform:translateY(-50%);right:calc(6px + env(safe-area-inset-right,0px));display:none;flex-direction:column;gap:9px}
@@ -415,12 +402,10 @@ a.btn:focus-visible,button.btn:focus-visible,button:focus-visible,input:focus-vi
 }
 /* On a phone every one of these is competing with the passage for the same
    column of screen. The passage is centred, so it only clears the sprays above
-   it and the swag below it while its own height stays under twice the gap
-   between the middle of the screen and whatever the sprays reach. These sizes
-   are what buy that room; fit.js measures whether they still do. */
+   it while its own height stays under twice the gap between the middle of
+   the screen and whatever those sprays reach. These sizes buy that room. */
 @media (max-width:560px){
   .corner{width:min(168px,30%,21svh)}
-  .garland,.mandap .garland{width:min(390px,86%,46svh,calc(var(--col, 100%) * .78))}
   .lamp{width:min(15%,106px,6.6svh)}
   .halo{width:min(110px,28%,13svh)}
   .band.open .gap-s{height:clamp(6px,1.1svh,9px)}
@@ -592,17 +577,14 @@ a.btn:focus-visible,button.btn:focus-visible,button:focus-visible,input:focus-vi
         <g transform="translate(524 0)"><g class="swing" style="--t:7.6s;--dly:-3.1s"><path class="beads" d="M0 0v168"/><path class="drop" d="M0 168c-4.5 6-7 10.5-7 14.5a7 7 0 0 0 14 0c0-4-2.5-8.5-7-14.5Z"/></g></g>
       </svg>
     </div>
-    <img class="garland" src="assets/garland.webp" alt="" decoding="async">
   </div>
   <div class="layer ivory">
     <div class="sky"></div><div class="glow"></div>
     <div class="pillar"></div><div class="pillar r"></div>
-    <img class="garland" src="assets/garland.webp" alt="" decoding="async">
   </div>
   <div class="layer ivory">
     <div class="sky"></div><div class="glow"></div>
     <div class="waist"></div>
-    <img class="garland" src="assets/garland.webp" alt="" decoding="async">
   </div>
   <div class="layer haldi">
     <div class="sky"></div><div class="glow"></div>
@@ -610,39 +592,33 @@ a.btn:focus-visible,button.btn:focus-visible,button:focus-visible,input:focus-vi
     <div class="pillar"></div><div class="pillar r"></div>
     
     
-    <img class="garland" src="assets/garland.webp" alt="" decoding="async">
   </div>
   <div class="layer sangeet">
     <div class="sky"></div><div class="glow"></div><div class="waist"></div>
     <div class="bokeh"></div>
     
-    <img class="garland" src="assets/garland.webp" alt="" decoding="async">
   </div>
   <div class="layer vivah">
     <div class="sky"></div><div class="glow"></div>
     <div class="waist"></div>
     <div class="pillar"></div><div class="pillar r"></div>
     
-    <img class="garland" src="assets/garland.webp" alt="" decoding="async">
   </div>
   <div class="layer reception">
     <div class="sky"></div><div class="glow"></div>
     <div class="waist"></div>
     <div class="pillar"></div><div class="pillar r"></div>
     <div class="bokeh"></div>
-    <img class="garland" src="assets/garland.webp" alt="" decoding="async">
   </div>
   <div class="layer ivory">
     <div class="sky"></div><div class="glow"></div>
     <div class="waist"></div>
-    <img class="garland" src="assets/garland.webp" alt="" decoding="async">
   </div>
   <div class="layer ivory">
     <div class="sky"></div><div class="glow"></div>
     <div class="pillar"></div><div class="pillar r"></div>
     
     
-    <img class="garland" src="assets/garland.webp" alt="" decoding="async">
   </div>
 </div>
 
@@ -880,18 +856,6 @@ a.btn:focus-visible,button.btn:focus-visible,button:focus-visible,input:focus-vi
   <div class="gap-s"></div>
   <p class="script" style="font-size:1.7rem">Manoj Jaiswal</p>
   <p class="parent">Shipra Apartment, Gomti Nagar, Lucknow</p>
-  <div class="gap-l"></div>
-  <div class="personal">
-    <p class="eyebrow">For the hosts &mdash; send it by name</p>
-    <div class="gap-m"></div>
-    <div class="ipt">
-      <input id="guestName" type="text" autocomplete="off" placeholder="Sharma Family" aria-describedby="tagOut">
-      <button class="btn" type="button" id="applyName">Preview</button>
-    </div>
-    <p class="tagline" id="tagOut">Add <code id="tagCode">#sharma-family</code> to the end of this invitation&rsquo;s link.</p>
-    <div class="gap-s"></div>
-    <button class="btn" type="button" id="copyTag">Copy the ending</button>
-  </div>
 </section>
 
 </main>
@@ -912,10 +876,6 @@ a.btn:focus-visible,button.btn:focus-visible,button:focus-visible,input:focus-vi
   function prettify(slug) {
     return slug.replace(/-+/g, ' ').trim().replace(/\s+/g, ' ')
       .replace(/(^|\s|\.)([a-z])/g, function (m, pre, ch) { return pre + ch.toUpperCase(); });
-  }
-  function slugify(name) {
-    return name.toLowerCase().replace(/&/g, ' and ').replace(/[^a-z0-9]+/g, '-')
-      .replace(/^-+|-+$/g, '').slice(0, 60);
   }
   function currentGuest() {
     var h = (window.location.hash || '').replace(/^#/, '');
@@ -1003,12 +963,6 @@ a.btn:focus-visible,button.btn:focus-visible,button:focus-visible,input:focus-vi
       layers[i].style.opacity = o;
       if (canopy[i]) canopy[i].style.opacity = o;
     }
-    /* a touch of depth: the garland lags the words a little */
-    var drift = 7 + Math.sin(window.pageYOffset / 900) * 7;
-    for (var j = 0; j < layers.length; j++) {
-      var gl = layers[j].querySelector('.garland');
-      if (gl) gl.style.transform = 'translateX(-50%) translateY(' + drift.toFixed(1) + 'px)';
-    }
     var cur = Math.min(bands.length - 1, Math.max(0, Math.round(p)));
     if (cur !== shownDot) {
       shownDot = cur;
@@ -1073,7 +1027,7 @@ a.btn:focus-visible,button.btn:focus-visible,button:focus-visible,input:focus-vi
   rose.decoding = 'async';
   rose.onload = function () { roseReady = true; };
   rose.src = 'assets/rose.webp';
-  /* the drifting roses take the same tint as the garland below them */
+  /* the drifting roses take the same tint as the corner sprays */
   function tintPetals(sec) {
     if (!sec) return;
     var cs = getComputedStyle(sec);
@@ -1310,24 +1264,5 @@ a.btn:focus-visible,button.btn:focus-visible,button:focus-visible,input:focus-vi
     });
   }
 
-  /* ---------- personalising the link ---------- */
-  var input = document.getElementById('guestName');
-  var tagCode = document.getElementById('tagCode');
-  function syncTag() {
-    var slug = slugify(input.value.trim());
-    if (!slug) { tagCode.textContent = '#sharma-family'; paintGuest(); return; }
-    tagCode.textContent = '#' + slug;
-    paintGuest(prettify(slug));
-  }
-  input.addEventListener('input', syncTag);
-  document.getElementById('applyName').addEventListener('click', function () {
-    var slug = slugify(input.value.trim());
-    if (slug) window.location.hash = slug;
-    syncTag();
-    bands[0].scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
-  });
-  document.getElementById('copyTag').addEventListener('click', function () {
-    copyText(tagCode.textContent, this, 'Copied');
-  });
 })();
 </script>

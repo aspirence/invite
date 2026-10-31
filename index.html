@@ -191,23 +191,6 @@ body{margin:0;font-family:var(--f-body);font-size:1rem;line-height:1.6;backgroun
 .haunch.r{left:92.3%}
 .finial path,.haunch path,.finial circle,.haunch circle{fill:none;stroke:var(--au);stroke-width:1.6;stroke-linecap:round}
 
-/* bead strands along the head of the arch; the ends fade so the
-   words below them never sit on gold */
-.chimes{left:50%;transform:translateX(-50%);top:0;width:min(1700px,100%,92svh);height:auto;
-  /* a scaled-up strand hangs past the foot of the viewBox, so the canvas must not
-     clip it, and the fade has to be told how far down to reach */
-  overflow:visible;
-  -webkit-mask-image:linear-gradient(to bottom,#000 74%,rgba(0,0,0,0) 100%);
-  mask-image:linear-gradient(to bottom,#000 74%,rgba(0,0,0,0) 100%);
-  -webkit-mask-size:100% var(--chimeReach,100%);mask-size:100% var(--chimeReach,100%);
-  -webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
-.chimes .beads{fill:none;stroke:var(--auMid);stroke-width:2.6;stroke-linecap:round;stroke-dasharray:0 6.5}
-.chimes .drop{fill:url(#auGrad);stroke:var(--auDeep);stroke-width:.7}
-/* fill-box puts the pivot on the knot at the top of each string, and the
-   rotate property keeps the translate that places it untouched */
-.swing{transform-box:fill-box;transform-origin:50% 0;scale:var(--strandScale,1);
-  animation:sway var(--t,5s) ease-in-out var(--dly,0s) infinite}
-@keyframes sway{0%,100%{rotate:-3deg}50%{rotate:3deg}}
 
 /* silk falling from the two upper corners */
 .drape{top:0;width:min(24%,290px,31svh);height:auto}
@@ -409,21 +392,12 @@ a.btn:focus-visible,button.btn:focus-visible,button:focus-visible,input:focus-vi
   html{scroll-behavior:auto}
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
 }
-/* On a phone the strands came out smaller than the flowers they hang beside,
-   and the silk sat entirely behind those flowers. The scale pivots on the knot,
-   so a longer strand also hangs lower, which carries it clear of them. */
-@media (max-width:560px){
-  /* the outer strands flank the narrow opening lines; the inner pair would land
-     on them, and a phone has no width to move them aside, so they go */
-  .chimes .inner{display:none}
-  .chimes{--strandScale:1.4;--chimeReach:150%}
-  .drape{width:min(42%,31svh)}
-}
 /* On a phone every one of these is competing with the passage for the same
    column of screen. The passage is centred, so it only clears the sprays above
    it while its own height stays under twice the gap between the middle of
    the screen and whatever those sprays reach. These sizes buy that room. */
 @media (max-width:560px){
+  .drape{width:min(42%,31svh)}
   .corner{width:min(168px,30%,21svh)}
   .lamp{width:min(15%,106px,6.6svh)}
   .halo{width:min(110px,28%,13svh)}
@@ -568,15 +542,6 @@ a.btn:focus-visible,button.btn:focus-visible,button:focus-visible,input:focus-vi
         <path class="trim" d="M214 0c-10 54-41 100-82 138-43 40-79 91-97 150C26 332 12 368 0 400"/>
       </svg>
 
-      <svg class="chimes" viewBox="0 0 600 300">
-
-        <g transform="translate(76 0)"><g class="swing" style="--t:7.2s;--dly:-1.4s"><path class="beads" d="M0 0v176"/><path class="drop" d="M0 176c-4.5 6-7 10.5-7 14.5a7 7 0 0 0 14 0c0-4-2.5-8.5-7-14.5Z"/></g></g>
-        <g transform="translate(128 0)"><g class="swing" style="--t:6.6s;--dly:-2.8s"><path class="beads" d="M0 0v132"/><path class="drop" d="M0 132c-4.5 6-7 10.5-7 14.5a7 7 0 0 0 14 0c0-4-2.5-8.5-7-14.5Z"/></g></g>
-        <g transform="translate(180 0)"><g class="swing inner" style="--t:7.8s;--dly:-0.6s"><path class="beads" d="M0 0v206"/><path class="drop" d="M0 206c-4.5 6-7 10.5-7 14.5a7 7 0 0 0 14 0c0-4-2.5-8.5-7-14.5Z"/></g></g>
-        <g transform="translate(420 0)"><g class="swing inner" style="--t:7.4s;--dly:-2.2s"><path class="beads" d="M0 0v126"/><path class="drop" d="M0 126c-4.5 6-7 10.5-7 14.5a7 7 0 0 0 14 0c0-4-2.5-8.5-7-14.5Z"/></g></g>
-        <g transform="translate(472 0)"><g class="swing" style="--t:6.8s;--dly:-0.8s"><path class="beads" d="M0 0v198"/><path class="drop" d="M0 198c-4.5 6-7 10.5-7 14.5a7 7 0 0 0 14 0c0-4-2.5-8.5-7-14.5Z"/></g></g>
-        <g transform="translate(524 0)"><g class="swing" style="--t:7.6s;--dly:-3.1s"><path class="beads" d="M0 0v168"/><path class="drop" d="M0 168c-4.5 6-7 10.5-7 14.5a7 7 0 0 0 14 0c0-4-2.5-8.5-7-14.5Z"/></g></g>
-      </svg>
     </div>
   </div>
   <div class="layer ivory">

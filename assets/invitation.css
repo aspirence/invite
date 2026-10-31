@@ -1,0 +1,342 @@
+/* Layout: one unbroken scroll. The scenery sits in a fixed backdrop whose
+   layers crossfade as you move down, so the palette changes under the words
+   instead of the page breaking into separate cards. */
+:root{
+  --f-script:'Pinyon Script','Snell Roundhand','Apple Chancery',cursive;
+  --f-disp:'Marcellus',Optima,Georgia,serif;
+  --f-body:'EB Garamond',Georgia,'Times New Roman',serif;
+  --f-dev:'Tiro Devanagari Hindi','Nirmala UI','Noto Sans Devanagari',serif;
+  /* seams sit between bands, outside every palette scope, so these need
+     a root-level default or their rules vanish and their stars go black */
+  --gold:#9C5560; --ink:#7A2433; --inkSoft:#9A5862;
+  --rule:rgba(124,46,62,.42);
+  --ruleFaint:rgba(124,46,62,.22);
+  color-scheme: light;
+}
+*{box-sizing:border-box}
+/* Each scroll should come to rest on a passage rather than between two.
+   mandatory only where the screen is tall enough to hold a whole passage -
+   below that it falls back to proximity, so a short screen can still be
+   scrolled freely through a passage taller than itself. */
+html{scroll-behavior:smooth;scroll-snap-type:y proximity}
+@media (min-height:660px){ html{scroll-snap-type:y mandatory} }
+body{margin:0;font-family:var(--f-body);font-size:1rem;line-height:1.6;background:#D8B5B3;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+.sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* ---------------- palettes: a dusty-rose family, maroon line-work ----------------
+   Every scene keeps its own hue but sits in the same powdery, desaturated
+   register, so the whole card reads as one printed piece. */
+.ivory{
+  --sky1:#F5E7E2; --sky2:#E8CDC8; --sky3:#D8B5B3;
+  --far:#CBA6A6;  --near:#B68E90;
+  --gold:#9C5560; --goldhi:#EBD3CE;
+  --ink:#7A2433;  --inkSoft:#9A5862; --inkFaint:rgba(122,36,51,.48);
+  --accent:#C98B95; --leaf:#8A8E6B; --orn2:#B99C92;
+  --bloomTint:none;
+}
+.haldi{
+  --sky1:#FDF4DC; --sky2:#F8E0AA; --sky3:#EEC372;
+  --far:#F6E2B8;  --near:#E0A845;
+  --gold:#B07028; --goldhi:#FFF2CE;
+  --ink:#6E3416;  --inkSoft:#8E5630; --inkFaint:rgba(110,52,22,.5);
+  --accent:#E8A33C; --leaf:#8A8F5A; --orn2:#D4A95E;
+  --bloomTint:hue-rotate(10deg) saturate(1.16);
+}
+.sangeet{
+  --sky1:#4A3173; --sky2:#2C1B4C; --sky3:#140B27;
+  --far:#3A2660;  --near:#0E0620;
+  --gold:#E8BE72; --goldhi:#FBEAC2;
+  --ink:#F9ECD4;  --inkSoft:rgba(249,236,212,.9); --inkFaint:rgba(249,236,212,.58);
+  --accent:#D18FB6; --leaf:#4E3B7C; --orn2:#A28BB4;
+  --bloomTint:saturate(.8) brightness(.84);
+}
+.vivah{
+  --sky1:#E9D9D3; --sky2:#DEB7A6; --sky3:#CF9B8D;
+  --far:#C9A494;  --near:#A87F6D;
+  --gold:#A5603F; --goldhi:#EFD5BE;
+  --ink:#6B2433;  --inkSoft:#8E4C52; --inkFaint:rgba(107,36,51,.5);
+  --accent:#C98A78; --leaf:#8A8E6B; --orn2:#C6A592;
+  --bloomTint:hue-rotate(4deg);
+}
+.reception{
+  --sky1:#A87FC2; --sky2:#79589E; --sky3:#4C3470;
+  --far:#8A66AE;  --near:#3A2655;
+  --gold:#D9BA96; --goldhi:#F0DCC6;
+  --ink:#FBF1EC;  --inkSoft:rgba(251,241,236,.9); --inkFaint:rgba(251,241,236,.58);
+  --accent:#C4A0BC; --leaf:#625873; --orn2:#B9A6B8;
+  --bloomTint:hue-rotate(-14deg) saturate(.98);
+}
+
+/* ---------------- the fixed backdrop that crossfades ---------------- */
+#backdrop{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+/* The flowers live here instead, above the words rather than behind them, so a
+   passage scrolling away slides under the blooms instead of over the top of
+   them. It crossfades in step with #backdrop, off the same scroll position. */
+#canopy{position:fixed;inset:0;z-index:3;overflow:hidden;pointer-events:none}
+#canopy .layer{position:absolute;inset:0;opacity:0;will-change:opacity}
+#canopy .layer:first-child{opacity:1}
+.layer{position:absolute;inset:0;opacity:0;will-change:opacity}
+.layer:first-child{opacity:1}
+.sky{position:absolute;inset:0;background:linear-gradient(177deg,var(--sky1) 0%,var(--sky2) 54%,var(--sky3) 100%)}
+/* washed paper rather than a clean gradient */
+.sky::after{content:"";position:absolute;inset:0;opacity:.2;
+  background:
+    radial-gradient(58% 40% at 22% 26%, #fff, rgba(255,255,255,0) 70%),
+    radial-gradient(46% 33% at 79% 15%, #fff, rgba(255,255,255,0) 70%),
+    radial-gradient(45% 31% at 65% 63%, var(--near), rgba(0,0,0,0) 74%),
+    radial-gradient(38% 27% at 24% 75%, var(--far), rgba(0,0,0,0) 74%)}
+.glow{position:absolute;left:50%;top:10%;width:min(820px,150%);aspect-ratio:1;transform:translateX(-50%);
+  background:radial-gradient(circle,var(--goldhi) 0%,rgba(255,255,255,0) 58%);opacity:.3}
+/* a cream glow that flatters an ivory page washes a night sky out */
+.sangeet .glow{opacity:.1}
+.reception .glow{opacity:.17}
+.waist{position:absolute;left:0;right:0;bottom:0;height:30%;background:linear-gradient(180deg,rgba(0,0,0,0),var(--near) 94%);opacity:.45}
+.pillar{position:absolute;top:0;bottom:0;width:min(96px,13%);background:linear-gradient(90deg,var(--near),rgba(0,0,0,0));opacity:.3}
+.pillar.r{right:0;transform:scaleX(-1)}
+/* strung lights for the evening scenes, in place of drawn chandeliers */
+.bokeh{position:absolute;inset:0;opacity:0;
+  background:
+    radial-gradient(circle 7px at 11% 13%, rgba(255,226,164,.9), rgba(255,226,164,0) 70%),
+    radial-gradient(circle 4px at 24% 7%,  rgba(255,226,164,.75), rgba(255,226,164,0) 70%),
+    radial-gradient(circle 9px at 38% 17%, rgba(255,226,164,.6),  rgba(255,226,164,0) 70%),
+    radial-gradient(circle 5px at 52% 9%,  rgba(255,226,164,.85), rgba(255,226,164,0) 70%),
+    radial-gradient(circle 8px at 67% 15%, rgba(255,226,164,.65), rgba(255,226,164,0) 70%),
+    radial-gradient(circle 4px at 81% 8%,  rgba(255,226,164,.8),  rgba(255,226,164,0) 70%),
+    radial-gradient(circle 6px at 92% 19%, rgba(255,226,164,.55), rgba(255,226,164,0) 70%),
+    radial-gradient(circle 5px at 17% 29%, rgba(255,226,164,.5),  rgba(255,226,164,0) 70%),
+    radial-gradient(circle 6px at 46% 26%, rgba(255,226,164,.45), rgba(255,226,164,0) 70%),
+    radial-gradient(circle 5px at 76% 31%, rgba(255,226,164,.5),  rgba(255,226,164,0) 70%)}
+.sangeet .bokeh,.reception .bokeh{opacity:.9;animation:twinkle 7s ease-in-out infinite}
+@keyframes twinkle{0%,100%{filter:brightness(1)}50%{filter:brightness(1.45)}}
+/* real roses, cut from the photographs; each palette tints its own copy */
+/* painted corner sprays; the 180deg turn puts their blooms in the corner
+   and lets the foliage trail inward, so no mask is needed */
+.corner{position:absolute;top:0;width:min(208px,44%);height:auto;
+  filter:var(--bloomTint,none);opacity:.96}
+.corner.l{left:0;translate:-12% var(--flower-y,0%);transform:rotate(180deg)}
+.corner.r{right:0;translate:12% var(--flower-y,0%);transform:rotate(180deg) scaleX(-1)}
+
+/* ---------------- the title scene: one continuous rose palace frame ----------------
+   The arch and its columns are one image, so their joins stay aligned.
+   Crop to source row 100, where flowers and carving fill the entire top.
+   The scene inherits the same blush, rose and maroon palette as the couple. */
+.mandap .glow{top:3%;opacity:.18}
+.stage{position:absolute;inset:0}
+.arena{position:absolute;inset:-7svh -8% 0}
+.palace-arch{display:block;width:100%;height:100%}
+@media (min-aspect-ratio:1/1){
+  .arena{top:-11.328125vw;bottom:auto}
+  .palace-arch{height:auto}
+}
+@media (max-height:600px) and (min-width:680px){
+  .band.open{padding-top:112px}
+}
+/* The arch already carries its own floral canopy. Keep this layer empty so
+   backdrop and canopy crossfades still share the same nine scene indices. */
+#canopy .layer:first-child .corner{display:none}
+
+/* A soft blush glow behind Shri Ganesha keeps the palette consistent. */
+/* the wrapper has to carry the width itself: left to shrink-wrap, a flex item
+   takes the picture's intrinsic size and the halo drawn off it dwarfs the page */
+.halo{position:relative;display:block;line-height:0;width:min(138px,36%)}
+.halo .ganesh{width:100%}
+.halo::before{content:"";position:absolute;left:50%;top:50%;
+  translate:-50% -50%;border-radius:50%;aspect-ratio:1;z-index:-1}
+.halo::before{width:250%;
+  background:radial-gradient(circle,rgba(255,246,244,.65) 0%,rgba(243,213,209,.3) 36%,rgba(243,213,209,0) 68%)}
+
+/* a long printed scroll has edges; these stay put while the words move */
+
+/* z-index 1: above the scenery, below the words - petals must never sit on text */
+#petals{position:fixed;top:0;left:50%;transform:translateX(-50%);width:min(452px,100%);height:100%;pointer-events:none;z-index:1;transition:filter .9s ease}
+
+/* ---------------- the words, one continuous column ---------------- */
+main{position:relative;z-index:2}
+.band{
+  display:flex;flex-direction:column;align-items:center;text-align:center;
+  width:min(430px,100%);margin-inline:auto;
+  padding-left:max(20px, env(safe-area-inset-left, 0px));
+  padding-right:max(20px, env(safe-area-inset-right, 0px));
+  padding-block:clamp(40px,7vh,68px);
+  /* A passage should fill the screen on a phone, but svh alone stretches it on
+     a tall one - at 1363px high these bands ran 1172px for 305px of writing,
+     three quarters of it empty. The px cap holds the measure steady instead. */
+  min-height:min(84svh,596px);justify-content:center;
+  scroll-snap-align:center;scroll-snap-stop:always;
+  color:var(--inkSoft);
+}
+.band>*{margin:0;max-width:100%}
+/* The first and last passages cannot be centred: their centres fall above
+   scrollY 0 and below the last scrollable pixel, so with mandatory snapping
+   the browser skips straight past them. They align to the ends instead. */
+.band.open{min-height:100svh;scroll-snap-align:start}
+.band:last-of-type{scroll-snap-align:end}
+.gap-s{height:8px}.gap-m{height:18px}.gap-l{height:32px}
+/* The opening passage is the one a guest lingers on, so its stops open up -
+   but only where the screen is tall enough that the extra height does not
+   push the last line down into the swag. */
+@media (min-height:950px){
+  .band.open .gap-s{height:10px}
+  .band.open .gap-m{height:22px}
+  .band.open .gap-l{height:38px}
+}
+
+.band.open>*{position:relative;z-index:1}
+
+.deva{font-family:var(--f-dev);color:var(--ink);line-height:1.95}
+.devaSmall{font-size:.84rem}
+.shloka{font-size:.8rem;color:var(--inkSoft);line-height:2.1}
+
+.ganesh{width:min(138px,36%);height:auto;display:block}
+
+.script{font-family:var(--f-script);color:var(--ink);line-height:1.2;font-weight:400;padding-inline:.2em}
+.title{font-size:clamp(2.2rem,10.6vw,3.1rem)}
+.name{font-size:clamp(2.8rem,14vw,4rem)}
+.evt{font-size:clamp(2rem,11vw,3rem)}
+.weds{font-family:var(--f-script);font-size:1.9rem;color:var(--leaf);line-height:1}
+
+.caps{font-family:var(--f-disp);font-size:.78rem;letter-spacing:.17em;text-transform:uppercase;color:var(--inkSoft)}
+.caps.strong{color:var(--ink);font-size:.86rem}
+.eyebrow{font-family:var(--f-disp);font-size:.7rem;letter-spacing:.26em;text-transform:uppercase;color:var(--gold)}
+.lede{font-style:italic;font-size:1rem;color:var(--inkSoft);max-width:30ch;text-wrap:balance}
+.elders{font-family:var(--f-disp);font-size:1.12rem;color:var(--ink);line-height:1.45;text-wrap:balance}
+.parent{font-family:var(--f-disp);font-size:.78rem;letter-spacing:.07em;color:var(--inkSoft);text-wrap:balance;max-width:30ch}
+.note{font-style:italic;font-size:.95rem;color:var(--inkSoft);max-width:28ch;text-wrap:balance}
+.haldi .band,.sangeet .band,.reception .band,
+.band.sangeet,.band.reception{
+  text-shadow:0 1px 2px rgba(22,14,30,.5), 0 0 14px rgba(22,14,30,.45)}
+
+/* the join between one passage and the next */
+.seam{display:flex;justify-content:center;padding-block:2px}
+.seam img{width:min(236px,58%);height:auto;opacity:.9}
+
+a.btn,button.btn{
+  font-family:var(--f-disp);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink);text-decoration:none;border:1px solid var(--gold);border-radius:2px;
+  padding:9px 17px;background:transparent;cursor:pointer;display:inline-block;
+  transition:background .25s ease,color .25s ease;
+}
+a.btn:hover,button.btn:hover{background:var(--gold);color:var(--sky1)}
+a.btn:focus-visible,button.btn:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+
+.count{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;width:100%;max-width:330px}
+.count div{border:1px solid var(--gold);border-radius:2px;padding:13px 2px 9px;min-width:0;background:rgba(255,255,255,.2)}
+.count b{display:block;font-family:var(--f-disp);font-weight:400;font-size:clamp(1.35rem,6.4vw,1.8rem);line-height:1;color:var(--ink);font-variant-numeric:tabular-nums}
+.count small{display:block;margin-top:6px;font-family:var(--f-disp);font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;color:var(--inkSoft)}
+
+/* one number, so it is set as type and is itself the control - a hairline
+   under it is all the chrome it needs */
+.phone{font-family:var(--f-disp);font-size:clamp(1.2rem,5.6vw,1.55rem);letter-spacing:.09em;
+  color:var(--ink);font-variant-numeric:tabular-nums;background:transparent;border:0;
+  border-bottom:1px solid var(--gold);padding:3px 4px 8px;cursor:pointer;
+  user-select:all;transition:border-color .3s ease,letter-spacing .3s ease}
+.phone:hover{border-bottom-color:var(--ink);letter-spacing:.11em}
+.phone:focus-visible{outline:2px solid var(--gold);outline-offset:5px;border-radius:2px}
+
+.people{color:var(--ink);line-height:1.95;font-size:.98rem;text-wrap:balance}
+.people .sep{color:var(--gold);padding:0 .3em}
+.fam{font-family:var(--f-script);font-size:1.5rem;color:var(--ink);display:block;margin-top:6px}
+
+
+/* ---------------- fixed controls ---------------- */
+#dots{position:fixed;z-index:50;top:50%;transform:translateY(-50%);right:calc(6px + env(safe-area-inset-right,0px));display:none;flex-direction:column;gap:9px}
+:root.opened #dots{display:flex}
+#dots button{width:7px;height:7px;padding:0;border-radius:50%;cursor:pointer;border:1px solid rgba(146,74,86,.8);background:transparent;transition:background .3s ease,transform .3s ease}
+#dots button[aria-current="true"]{background:#92405A;transform:scale(1.5)}
+
+#sound{
+  position:fixed;z-index:50;display:none;align-items:center;gap:7px;
+  left:calc(12px + env(safe-area-inset-left,0px));
+  bottom:calc(12px + env(safe-area-inset-bottom,0px));
+  background:rgba(58,30,36,.6);border:1px solid rgba(240,214,208,.45);border-radius:999px;
+  color:#F3DED8;font-family:var(--f-disp);font-size:.6rem;letter-spacing:.14em;
+  text-transform:uppercase;padding:8px 14px;cursor:pointer;backdrop-filter:blur(6px);
+}
+:root.opened #sound{display:flex}
+#sound .bars{display:flex;align-items:flex-end;gap:2px;height:10px}
+#sound .bars i{width:2px;background:#F3DED8;height:3px;display:block;border-radius:1px}
+/* audio cannot start from a scroll - no browser allows it - so when playback
+   is waiting on a real tap, the pill says so and breathes to catch the eye */
+#sound.needs-tap{animation:breathe 2.4s ease-in-out infinite;border-color:rgba(240,214,208,.85)}
+#sound.on .bars i{animation:eq .9s ease-in-out infinite}
+#sound.on .bars i:nth-child(2){animation-delay:.15s}
+#sound.on .bars i:nth-child(3){animation-delay:.3s}
+#sound.on .bars i:nth-child(4){animation-delay:.45s}
+@keyframes eq{0%,100%{height:3px}50%{height:10px}}
+
+/* ---------------- the seal ---------------- */
+#opener{
+  position:fixed;inset:0;z-index:80;display:grid;place-items:center;cursor:pointer;text-align:center;
+  background:radial-gradient(118% 72% at 50% 28%,#F8EAE5 0%,#EBD2CD 46%,#D9B6B4 100%);
+  padding-left:max(18px, env(safe-area-inset-left, 0px));
+  padding-right:max(18px, env(safe-area-inset-right, 0px));
+  padding-block:26px;
+  transition:opacity .85s ease .45s, visibility .85s ease .45s;
+}
+:root.opened #opener{opacity:0;visibility:hidden;pointer-events:none}
+/* The opening screen and every scene anchor flowers to the viewport edges. */
+.opener-art{position:absolute;inset:0;pointer-events:none;z-index:1;
+  display:grid;place-items:center;color:var(--rule)}
+.opener-art .corner{--flower-y:-12%}
+.opener-in{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;max-width:430px;color:#9A5862}
+.opener-in .ganesh{width:min(118px,30%);margin:0 0 10px}
+.opener-in .opener-inv{font-family:var(--f-dev);font-size:.8rem;color:#9C5560;margin:0 0 26px;line-height:1.9}
+.opener-in .for{font-family:var(--f-disp);font-size:.65rem;letter-spacing:.24em;text-transform:uppercase;color:#9C5560;margin:0 0 5px}
+.opener-in .welcome{line-height:1.9;margin-bottom:28px}
+.opener-in .who{font-family:var(--f-script);font-size:clamp(1.9rem,8vw,2.4rem);color:#7A2433;margin:0 0 28px;line-height:1.2}
+.opener-in .mono{font-family:var(--f-script);font-size:clamp(2.5rem,12vw,3.4rem);line-height:1.15;margin:0;color:#7A2433}
+.opener-in .mono em{font-family:var(--f-body);font-style:italic;font-size:.33em;color:#7E9A6B;padding:0 .3em;vertical-align:.4em}
+.opener-in .opener-note{font-family:var(--f-body);font-style:italic;font-size:1rem;line-height:1.5;
+  max-width:32ch;text-wrap:balance;margin:16px 0 0}
+.opener-in .date{font-family:var(--f-disp);font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:#9A5862;margin:18px 0}
+.opener-in .opener-blessing{font-family:var(--f-dev);font-size:.8rem;line-height:1.9;
+  max-width:32ch;text-wrap:balance;margin:0;color:#9C5560}
+.tap{font-family:var(--f-disp);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;
+  color:#9C5560;margin:24px 0 0;border:0;background:transparent;cursor:pointer;padding:10px 6px;
+  animation:breathe 2.6s ease-in-out infinite}
+@media (max-height:650px){
+  .opener-in .ganesh{width:min(78px,23%);margin-bottom:6px}
+  .opener-in .opener-inv{margin-bottom:14px}
+  .opener-in .welcome,.opener-in .who{margin-bottom:18px}
+  .opener-in .opener-note{font-size:.875rem;line-height:1.45;margin-top:10px}
+  .opener-in .date{font-size:.65rem;letter-spacing:.15em;margin:12px 0}
+  .opener-in .opener-blessing{font-size:.73rem;line-height:1.7}
+  .tap{margin-top:12px;padding-block:8px}
+}
+@media (max-height:500px){
+  #opener{padding-block:12px}
+  .opener-in .ganesh{width:48px;margin-bottom:4px}
+  .opener-in .opener-inv{font-size:.68rem;line-height:1.6;margin-bottom:8px}
+  .opener-in .welcome{font-size:.6rem;line-height:1.5;margin-bottom:12px}
+  .opener-in .who{font-size:1.6rem;margin-bottom:12px}
+  .opener-in .mono{font-size:clamp(1.9rem,9vw,2.6rem)}
+  .opener-in .opener-note{font-size:.82rem;line-height:1.35;margin-top:8px}
+  .opener-in .date{font-size:.6rem;letter-spacing:.12em;margin:8px 0}
+  .opener-in .opener-blessing{font-size:.7rem;line-height:1.5}
+  .tap{font-size:.62rem;margin-top:10px;padding-block:6px}
+}
+.tap:focus-visible{outline:2px solid #7A2433;outline-offset:4px;border-radius:2px}
+@keyframes breathe{0%,100%{opacity:.55}50%{opacity:1}}
+:root.opened .opener-in>*{opacity:0;transform:translateY(-10px);transition:opacity .5s ease,transform .6s ease}
+
+/* ---------------- reveal: the hidden state is set by script, never in the base CSS ---------------- */
+.will-reveal{opacity:0;transform:translateY(20px)}
+.will-reveal.shown{opacity:1;transform:none;transition:opacity .9s cubic-bezier(.22,.8,.3,1) var(--d,0s),transform .9s cubic-bezier(.22,.8,.3,1) var(--d,0s)}
+.script.will-reveal{transform:translateY(14px) scale(.96)}
+.script.will-reveal.shown{transform:none}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
+/* On a phone every one of these is competing with the passage for the same
+   column of screen. The passage is centred, so it only clears the sprays above
+   it while its own height stays under twice the gap between the middle of
+   the screen and whatever those sprays reach. These sizes buy that room. */
+@media (max-width:560px){
+  .corner{width:min(168px,30%,21svh)}
+  .halo{width:min(110px,28%,13svh)}
+  .band.open .gap-s{height:clamp(6px,1.1svh,9px)}
+  .band.open .gap-m{height:clamp(13px,2.4svh,20px)}
+  .band.open .gap-l{height:clamp(22px,4.3svh,36px)}
+}

@@ -1,10 +1,15 @@
 # Wedding artwork
 
-Generated with the built-in image generation tool for the title scene. Transparent alpha is retained in the optimized WebP files. The active frame is the original `wedding-arch.webp`, reused unchanged with a CSS crop at the top. Its central opening remains transparent. No new image was generated for this crop; the added-silk variant is unused. The lamps are no longer displayed.
+Generated and edited with the built-in image generation tool for the title scene. The active `wedding-arch-rose.webp` is a continuous arch with attached pillars, recoloured to match the existing blush-rose, maroon and sage invitation. It uses the original arch as the edit target and `corner.webp` as the floral colour reference. Its central opening stays transparent. A single image and a small top crop replace the separate crown and pillar fragments. The lamps remain removed.
 
-- `wedding-arch.webp`: active original frame, 1024 × 1536, WebP quality 88.
+- `wedding-arch-rose.webp`: active continuous frame, 1024 × 1536, WebP quality 88, alpha retained.
+- `wedding-arch.webp`: original gold frame, retained as the edit source.
 - `wedding-arch-fullbleed.webp`: unused added-silk variant, retained as history.
 - `wedding-lantern.webp`: earlier lantern artwork, retained but not displayed.
+
+## Active rose frame edit prompt
+
+Use case: precise-object-edit. Image 1 is the wedding arch to EDIT. Image 2 is a COLOR REFERENCE ONLY. Create a polished color-matched version of Image 1 as ONE CONTINUOUS UNBROKEN ARCH AND TWO ATTACHED PILLARS, portrait 1024x1536. Keep its recognizable scalloped Mughal arch, existing floral carvings, roses and slender pillars, and keep the arch curves physically connected to the tops of the columns at exactly matching edges with NO detached capital blocks, no gaps or floating parts. Match the invitation's romantic dusty blush palette: pale pink ivory stone (#F5E7E2), muted rose shading (#CBA6A6), very restrained pale champagne highlights, blush-pink garden roses and muted sage/blue-green leaves matching Image 2. Remove the dominant yellow/ochre gold and cream cast. Metal detailing should be soft champagne and dusty rose, subtle and elegant, never bright yellow gold. Do not add maroon text; maroon will be website typography. Keep the same refined painterly detailed material quality. Composition: align the complete left and right pillars to the EXTREME canvas edges, slender side artwork, large unobstructed transparent center for all text. At the top extend ONLY the existing rose-and-sage foliage arrangements upward to the canvas edges so both upper corners are filled with the SAME flowers and leaves, and the central gold/rose crest touches and slightly crops through the top edge. The entire top edge must be painted flowers/foliage/crest, with no outside blank wedges or padding. Do NOT add new embroidered fabric panels or additional draped silk across the top; retain just the small existing silk swags within the original arch. Preserve the architecture and its continuity, only adjust color and bring existing upper florals to the edges. The interior doorway and bottom center must have real alpha transparency, no colored background haze. No lamps, no lanterns, no candles, no deities, no people, no text, no logos. One flat finished decorative image, not a mockup or collage, absolutely no split or detached pillars.
 
 ## Earlier added-silk edit prompt (unused variant)
 

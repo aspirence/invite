@@ -227,11 +227,22 @@ body{margin:0;font-family:var(--f-body);font-size:1rem;line-height:1.6;backgroun
    takes the picture's intrinsic size and the halo drawn off it dwarfs the page */
 .halo{position:relative;display:block;line-height:0;width:min(138px,36%)}
 .halo .ganesh{width:100%}
-.halo::before,.halo::after{content:"";position:absolute;left:50%;top:50%;
+.halo::before{content:"";position:absolute;left:50%;top:50%;
   translate:-50% -50%;border-radius:50%;aspect-ratio:1;z-index:-1}
 .halo::before{width:250%;
   background:radial-gradient(circle,rgba(255,238,195,.95) 0%,rgba(255,224,160,.5) 36%,rgba(255,216,150,0) 68%)}
-.halo::after{width:166%;border:1px solid rgba(178,131,47,.4)}
+/* the gold tokens live on .mandap, in the backdrop; the halo sits in the band,
+   a different subtree, so var(--au) resolves to nothing there and stroke falls
+   back to none. These are stated outright. */
+.halo .ring{position:absolute;left:50%;top:50%;translate:-50% -50%;
+  /* the buds paint about 4% proud of the box, so this is sized for the
+     painted extent rather than the element */
+  width:138%;aspect-ratio:1;z-index:-1;overflow:visible;fill:none;stroke:#B2832F}
+.halo .ring .r1{stroke-width:1.5;opacity:.72}
+.halo .ring .r2{stroke-width:.9;opacity:.5}
+.halo .ring .r3{stroke-width:.7;opacity:.3}
+.halo .ring .bead circle{fill:#D6AC57;stroke:none;opacity:.8}
+.halo .ring .bud path{stroke-width:1.1;opacity:.72;stroke-linecap:round;stroke-linejoin:round}
 
 /* a long printed scroll has edges; these stay put while the words move */
 
@@ -371,6 +382,7 @@ a.btn:focus-visible,button.btn:focus-visible,button:focus-visible,input:focus-vi
 .opener-in .ganesh{width:min(118px,30%);margin:0 0 10px}
 .opener-in .opener-inv{font-family:var(--f-dev);font-size:.8rem;color:#9C5560;margin:0 0 26px;line-height:1.9}
 .opener-in .for{font-family:var(--f-disp);font-size:.65rem;letter-spacing:.24em;text-transform:uppercase;color:#9C5560;margin:0 0 5px}
+.opener-in .welcome{line-height:1.9;margin-bottom:28px}
 .opener-in .who{font-family:var(--f-script);font-size:clamp(1.9rem,8vw,2.4rem);color:#7A2433;margin:0 0 28px;line-height:1.2}
 .opener-in .mono{font-family:var(--f-script);font-size:clamp(2.5rem,12vw,3.4rem);line-height:1.15;margin:0;color:#7A2433}
 .opener-in .mono em{font-family:var(--f-body);font-style:italic;font-size:.33em;color:#7E9A6B;padding:0 .3em;vertical-align:.4em}
@@ -461,6 +473,11 @@ a.btn:focus-visible,button.btn:focus-visible,button:focus-visible,input:focus-vi
         <path class="trace" d="M64 452A33.6 33.6 0 0 0 69.4 387.7 33.6 33.6 0 0 0 85.4 325.1 33.6 33.6 0 0 0 111.6 266.1 33.6 33.6 0 0 0 147.3 212.3 33.6 33.6 0 0 0 191.5 165.1 33.6 33.6 0 0 0 242.8 126 33.6 33.6 0 0 0 300 96 33.6 33.6 0 0 0 357.2 126 33.6 33.6 0 0 0 408.5 165.1 33.6 33.6 0 0 0 452.7 212.3 33.6 33.6 0 0 0 488.4 266.1 33.6 33.6 0 0 0 514.6 325.1 33.6 33.6 0 0 0 530.6 387.7 33.6 33.6 0 0 0 536 452"/>
         <path class="trace" d="M64 452V900M536 452V900"/>
         <path class="hair" d="M28 470V900M572 470V900"/>
+        <!-- a capital where each column meets the springing of the arch -->
+        <path class="trace" d="M18 470h58M524 470h58"/>
+        <path class="hair" d="M24 481h46M530 481h46"/>
+        <!-- and a fine rule following the lead arch just inside it -->
+        <path class="hair" d="M58 470A428 428 0 0 1 300 84 428 428 0 0 1 542 470"/>
       </svg>
 
       <svg class="haunch l" viewBox="0 0 60 60">
@@ -636,11 +653,12 @@ a.btn:focus-visible,button.btn:focus-visible,button:focus-visible,input:focus-vi
   <div class="opener-in">
     <img class="ganesh opener-ganesh" src="assets/ganesh.webp" alt="Shri Ganesha" decoding="async">
     <p class="deva opener-inv">&#2405; &#2358;&#2381;&#2352;&#2368; &#2327;&#2339;&#2375;&#2358;&#2366;&#2351; &#2344;&#2350;&#2307; &#2405;</p>
-    <p class="for">This invitation is for</p>
-    <p class="who" data-guest data-default="Our Dear Guest">Our Dear Guest</p>
+    <p class="for welcome" id="openerWelcome">With joy in our hearts,<br>we invite you to celebrate</p>
+    <p class="for" id="openerGuestLabel" hidden>A special invitation for</p>
+    <p class="who" id="openerGuest" data-guest data-default="" hidden></p>
     <p class="mono">Saharsh <em>weds</em> Shreya</p>
     <p class="date">Saturday, 21 November 2026 &middot; Lucknow</p>
-    <button class="tap" id="sealBtn" type="button">Tap anywhere or scroll to open &#9834;</button>
+    <button class="tap" id="sealBtn" type="button">Tap to open &#9834;</button>
   </div>
 </div>
 
@@ -660,7 +678,16 @@ a.btn:focus-visible,button.btn:focus-visible,button:focus-visible,input:focus-vi
   <div class="gap-l"></div>
   <p class="deva devaSmall">&#2405; &#2384; &#2358;&#2381;&#2352;&#2368; &#2327;&#2339;&#2375;&#2358;&#2366;&#2351; &#2344;&#2350;&#2307; &#2405;</p>
   <div class="gap-m"></div>
-  <span class="halo"><img class="ganesh" src="assets/ganesh.webp" alt="Shri Ganesha" decoding="async"></span>
+  <span class="halo">
+      <svg class="ring" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+        <circle class="r1" cx="100" cy="100" r="95"/>
+        <circle class="r2" cx="100" cy="100" r="83"/>
+        <g class="bead"><circle cx="100" cy="11" r="1.5"/><circle cx="115.45" cy="12.35" r="1.5"/><circle cx="130.44" cy="16.37" r="1.5"/><circle cx="144.5" cy="22.92" r="1.5"/><circle cx="157.21" cy="31.82" r="1.5"/><circle cx="168.18" cy="42.79" r="1.5"/><circle cx="177.08" cy="55.5" r="1.5"/><circle cx="183.63" cy="69.56" r="1.5"/><circle cx="187.65" cy="84.55" r="1.5"/><circle cx="189" cy="100" r="1.5"/><circle cx="187.65" cy="115.45" r="1.5"/><circle cx="183.63" cy="130.44" r="1.5"/><circle cx="177.08" cy="144.5" r="1.5"/><circle cx="168.18" cy="157.21" r="1.5"/><circle cx="157.21" cy="168.18" r="1.5"/><circle cx="144.5" cy="177.08" r="1.5"/><circle cx="130.44" cy="183.63" r="1.5"/><circle cx="115.45" cy="187.65" r="1.5"/><circle cx="100" cy="189" r="1.5"/><circle cx="84.55" cy="187.65" r="1.5"/><circle cx="69.56" cy="183.63" r="1.5"/><circle cx="55.5" cy="177.08" r="1.5"/><circle cx="42.79" cy="168.18" r="1.5"/><circle cx="31.82" cy="157.21" r="1.5"/><circle cx="22.92" cy="144.5" r="1.5"/><circle cx="16.37" cy="130.44" r="1.5"/><circle cx="12.35" cy="115.45" r="1.5"/><circle cx="11" cy="100" r="1.5"/><circle cx="12.35" cy="84.55" r="1.5"/><circle cx="16.37" cy="69.56" r="1.5"/><circle cx="22.92" cy="55.5" r="1.5"/><circle cx="31.82" cy="42.79" r="1.5"/><circle cx="42.79" cy="31.82" r="1.5"/><circle cx="55.5" cy="22.92" r="1.5"/><circle cx="69.56" cy="16.37" r="1.5"/><circle cx="84.55" cy="12.35" r="1.5"/></g>
+        <g class="bud"><g transform="translate(100 5) rotate(0)"><path d="M0 -9.5C-5.5 -9.5 -9 -5.5 -9 -0.5 -9 4.5 -4.5 8 0 8 4.5 8 9 4.5 9 -0.5 9 -5.5 5.5 -9.5 0 -9.5Z"/><path d="M0 -9.5V8M-6.4 -5.2C-4 -1 -2 3 0 8M6.4 -5.2C4 -1 2 3 0 8"/></g><g transform="translate(195 100) rotate(90)"><path d="M0 -9.5C-5.5 -9.5 -9 -5.5 -9 -0.5 -9 4.5 -4.5 8 0 8 4.5 8 9 4.5 9 -0.5 9 -5.5 5.5 -9.5 0 -9.5Z"/><path d="M0 -9.5V8M-6.4 -5.2C-4 -1 -2 3 0 8M6.4 -5.2C4 -1 2 3 0 8"/></g><g transform="translate(100 195) rotate(180)"><path d="M0 -9.5C-5.5 -9.5 -9 -5.5 -9 -0.5 -9 4.5 -4.5 8 0 8 4.5 8 9 4.5 9 -0.5 9 -5.5 5.5 -9.5 0 -9.5Z"/><path d="M0 -9.5V8M-6.4 -5.2C-4 -1 -2 3 0 8M6.4 -5.2C4 -1 2 3 0 8"/></g><g transform="translate(5 100) rotate(270)"><path d="M0 -9.5C-5.5 -9.5 -9 -5.5 -9 -0.5 -9 4.5 -4.5 8 0 8 4.5 8 9 4.5 9 -0.5 9 -5.5 5.5 -9.5 0 -9.5Z"/><path d="M0 -9.5V8M-6.4 -5.2C-4 -1 -2 3 0 8M6.4 -5.2C4 -1 2 3 0 8"/></g></g>
+        <circle class="r3" cx="100" cy="100" r="74"/>
+      </svg>
+      <img class="ganesh" src="assets/ganesh.webp" alt="Shri Ganesha" decoding="async">
+  </span>
   <div class="gap-m"></div>
   <p class="deva shloka">&#2357;&#2325;&#2381;&#2352;&#2340;&#2369;&#2339;&#2381;&#2337; &#2350;&#2361;&#2366;&#2325;&#2366;&#2351; &#2360;&#2370;&#2352;&#2381;&#2351;&#2325;&#2379;&#2335;&#2367; &#2360;&#2350;&#2346;&#2381;&#2352;&#2349;&#2307; &#2404;<br>&#2344;&#2367;&#2352;&#2381;&#2357;&#2367;&#2328;&#2381;&#2344;&#2306; &#2325;&#2369;&#2352;&#2369; &#2350;&#2375; &#2342;&#2375;&#2357; &#2360;&#2352;&#2381;&#2357;&#2325;&#2366;&#2352;&#2381;&#2351;&#2375;&#2359;&#2369; &#2360;&#2352;&#2381;&#2357;&#2342;&#2366; &#2405;</p>
   <div class="gap-l"></div>
@@ -845,6 +872,9 @@ a.btn:focus-visible,button.btn:focus-visible,button:focus-visible,input:focus-vi
     for (var i = 0; i < slots.length; i++) {
       slots[i].textContent = name || slots[i].getAttribute('data-default');
     }
+    document.getElementById('openerWelcome').hidden = !!name;
+    document.getElementById('openerGuestLabel').hidden = !name;
+    document.getElementById('openerGuest').hidden = !name;
   }
   paintGuest();
   window.addEventListener('hashchange', function () { paintGuest(); });

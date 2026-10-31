@@ -39,20 +39,20 @@ body{margin:0;font-family:var(--f-body);font-size:1rem;line-height:1.6;backgroun
   --bloomTint:none;
 }
 .haldi{
-  --sky1:#A9C6CE; --sky2:#7A9FAD; --sky3:#54798C;
-  --far:#8FAEB8;  --near:#AE7B55;
-  --gold:#C08A4E; --goldhi:#F0DCB8;
-  --ink:#FFF6EE;  --inkSoft:rgba(255,246,238,.93); --inkFaint:rgba(255,246,238,.6);
-  --accent:#D79A5A; --leaf:#7E8C66; --orn2:#D8C3A0;
-  --bloomTint:hue-rotate(18deg) saturate(1.08);
+  --sky1:#FDF4DC; --sky2:#F8E0AA; --sky3:#EEC372;
+  --far:#F6E2B8;  --near:#E0A845;
+  --gold:#B07028; --goldhi:#FFF2CE;
+  --ink:#6E3416;  --inkSoft:#8E5630; --inkFaint:rgba(110,52,22,.5);
+  --accent:#E8A33C; --leaf:#8A8F5A; --orn2:#D4A95E;
+  --bloomTint:hue-rotate(10deg) saturate(1.16);
 }
 .sangeet{
-  --sky1:#3D3652; --sky2:#2A2439; --sky3:#191525;
-  --far:#2E2742;  --near:#141021;
-  --gold:#C9A47E; --goldhi:#EBD6BC;
-  --ink:#F4E7DE;  --inkSoft:rgba(244,231,222,.88); --inkFaint:rgba(244,231,222,.56);
-  --accent:#B98FA0; --leaf:#4A4162; --orn2:#8E7A86;
-  --bloomTint:saturate(.62) sepia(.2) brightness(.76);
+  --sky1:#4A3173; --sky2:#2C1B4C; --sky3:#140B27;
+  --far:#3A2660;  --near:#0E0620;
+  --gold:#E8BE72; --goldhi:#FBEAC2;
+  --ink:#F9ECD4;  --inkSoft:rgba(249,236,212,.9); --inkFaint:rgba(249,236,212,.58);
+  --accent:#D18FB6; --leaf:#4E3B7C; --orn2:#A28BB4;
+  --bloomTint:saturate(.8) brightness(.84);
 }
 .vivah{
   --sky1:#E9D9D3; --sky2:#DEB7A6; --sky3:#CF9B8D;
@@ -63,8 +63,8 @@ body{margin:0;font-family:var(--f-body);font-size:1rem;line-height:1.6;backgroun
   --bloomTint:hue-rotate(4deg);
 }
 .reception{
-  --sky1:#C6B4C8; --sky2:#A693B0; --sky3:#857791;
-  --far:#A08FA8;  --near:#6B5C76;
+  --sky1:#A87FC2; --sky2:#79589E; --sky3:#4C3470;
+  --far:#8A66AE;  --near:#3A2655;
   --gold:#D9BA96; --goldhi:#F0DCC6;
   --ink:#FBF1EC;  --inkSoft:rgba(251,241,236,.9); --inkFaint:rgba(251,241,236,.58);
   --accent:#C4A0BC; --leaf:#625873; --orn2:#B9A6B8;
@@ -83,7 +83,7 @@ body{margin:0;font-family:var(--f-body);font-size:1rem;line-height:1.6;backgroun
 .layer:first-child{opacity:1}
 .sky{position:absolute;inset:0;background:linear-gradient(177deg,var(--sky1) 0%,var(--sky2) 54%,var(--sky3) 100%)}
 /* washed paper rather than a clean gradient */
-.sky::after{content:"";position:absolute;inset:0;opacity:.34;
+.sky::after{content:"";position:absolute;inset:0;opacity:.2;
   background:
     radial-gradient(58% 40% at 22% 26%, #fff, rgba(255,255,255,0) 70%),
     radial-gradient(46% 33% at 79% 15%, #fff, rgba(255,255,255,0) 70%),
@@ -291,7 +291,7 @@ main{position:relative;z-index:2}
 .parent{font-family:var(--f-disp);font-size:.78rem;letter-spacing:.07em;color:var(--inkSoft);text-wrap:balance;max-width:30ch}
 .note{font-style:italic;font-size:.95rem;color:var(--inkSoft);max-width:28ch;text-wrap:balance}
 .haldi .band,.sangeet .band,.reception .band,
-.band.haldi,.band.sangeet,.band.reception{
+.band.sangeet,.band.reception{
   text-shadow:0 1px 2px rgba(22,14,30,.5), 0 0 14px rgba(22,14,30,.45)}
 
 /* the join between one passage and the next */

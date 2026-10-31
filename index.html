@@ -223,6 +223,14 @@ body{margin:0;font-family:var(--f-body);font-size:1rem;line-height:1.6;backgroun
 .lamp{bottom:0;width:min(15%,106px,12.4svh);height:auto}
 .lamp.l{left:12%}
 .lamp.r{right:12%}
+/* The arena is bounded by 85svh, so on a short window it narrows until the
+   lamps stand inside the 430px column of writing and land on the title. Once
+   the screen is wider than the writing plus two lamps, place them from the
+   centre instead, clear of the column. */
+@media (min-width:680px){
+  .lamp.l{left:auto;right:calc(50% + 232px)}
+  .lamp.r{right:auto;left:calc(50% + 232px)}
+}
 .lamp .body{fill:url(#auGrad);stroke:var(--auDeep);stroke-width:1.2}
 .lamp .cage{fill:none;stroke:var(--auDeep);stroke-width:1.2}
 .lamp .line{fill:none;stroke:var(--auDeep);stroke-width:1.6;stroke-linecap:round}

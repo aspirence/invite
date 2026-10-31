@@ -317,12 +317,14 @@ a.btn:focus-visible,button.btn:focus-visible,button:focus-visible,input:focus-vi
 .count b{display:block;font-family:var(--f-disp);font-weight:400;font-size:clamp(1.35rem,6.4vw,1.8rem);line-height:1;color:var(--ink);font-variant-numeric:tabular-nums}
 .count small{display:block;margin-top:6px;font-family:var(--f-disp);font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;color:var(--inkSoft)}
 
-.calls{list-style:none;margin:0;padding:0;display:grid;gap:7px;width:100%;max-width:330px}
-.calls li{display:flex;align-items:center;gap:10px;border:1px solid var(--gold);border-radius:2px;padding:9px 11px;background:rgba(255,255,255,.2)}
-.calls .nm{font-family:var(--f-disp);font-size:.72rem;letter-spacing:.13em;text-transform:uppercase;color:var(--gold);min-width:4.6em;text-align:left}
-.calls .no{font-family:var(--f-disp);font-size:.95rem;letter-spacing:.05em;color:var(--ink);font-variant-numeric:tabular-nums;flex:1;min-width:0;text-align:left;user-select:all}
-.cp{font-family:var(--f-disp);font-size:.56rem;letter-spacing:.12em;text-transform:uppercase;background:transparent;border:1px solid var(--gold);color:var(--gold);border-radius:2px;padding:5px 8px;cursor:pointer;flex:none}
-.cp:hover{background:var(--gold);color:var(--sky1)}
+/* one number, so it is set as type and is itself the control - a hairline
+   under it is all the chrome it needs */
+.phone{font-family:var(--f-disp);font-size:clamp(1.2rem,5.6vw,1.55rem);letter-spacing:.09em;
+  color:var(--ink);font-variant-numeric:tabular-nums;background:transparent;border:0;
+  border-bottom:1px solid var(--gold);padding:3px 4px 8px;cursor:pointer;
+  user-select:all;transition:border-color .3s ease,letter-spacing .3s ease}
+.phone:hover{border-bottom-color:var(--ink);letter-spacing:.11em}
+.phone:focus-visible{outline:2px solid var(--gold);outline-offset:5px;border-radius:2px}
 
 .people{color:var(--ink);line-height:1.95;font-size:.98rem;text-wrap:balance}
 .people .sep{color:var(--gold);padding:0 .3em}
@@ -843,12 +845,11 @@ a.btn:focus-visible,button.btn:focus-visible,button:focus-visible,input:focus-vi
   <div class="gap-l"></div>
   <p class="eyebrow">For anything you need</p>
   <div class="gap-m"></div>
-  <ul class="calls">
-    <li><span class="nm">Manoj</span><span class="no" id="n1">+91 94151 42350</span><button class="cp" type="button" data-copy="n1">Copy</button></li>
-    <li><span class="nm">Girish</span><span class="no" id="n2">+91 94150 48641</span><button class="cp" type="button" data-copy="n2">Copy</button></li>
-    <li><span class="nm">Sanjay</span><span class="no" id="n3">+91 99844 30200</span><button class="cp" type="button" data-copy="n3">Copy</button></li>
-    <li><span class="nm">Ashish</span><span class="no" id="n4">+91 73551 92400</span><button class="cp" type="button" data-copy="n4">Copy</button></li>
-  </ul>
+  <p class="script" style="font-size:1.75rem">Manoj Jaiswal</p>
+  <div class="gap-s"></div>
+  <button class="phone" type="button" id="callNo">+91 94151 42350</button>
+  <div class="gap-s"></div>
+  <p class="note" id="phoneHint">Tap the number to copy it</p>
 </section>
 
 <div class="seam"><img src="assets/sprig.webp" alt="" decoding="async"></div>
@@ -878,7 +879,7 @@ a.btn:focus-visible,button.btn:focus-visible,button:focus-visible,input:focus-vi
   <p class="eyebrow">From</p>
   <div class="gap-s"></div>
   <p class="script" style="font-size:1.7rem">Manoj Jaiswal</p>
-  <p class="parent">Shipra Apartment, Gomti Nagar, Lucknow &middot; 94151 42350</p>
+  <p class="parent">Shipra Apartment, Gomti Nagar, Lucknow</p>
   <div class="gap-l"></div>
   <div class="personal">
     <p class="eyebrow">For the hosts &mdash; send it by name</p>
@@ -1299,11 +1300,13 @@ a.btn:focus-visible,button.btn:focus-visible,button:focus-visible,input:focus-vi
         .catch(function () { flash(el, 'Select it'); });
     } else { flash(el, 'Select it'); }
   }
-  var copyBtns = document.querySelectorAll('.cp');
-  for (var k = 0; k < copyBtns.length; k++) {
-    copyBtns[k].addEventListener('click', function () {
-      var src = document.getElementById(this.getAttribute('data-copy'));
-      copyText(src.textContent.replace(/\s+/g, ''), this, 'Copied');
+  /* the number stays put and the line beneath it reports back, so the digits
+     are never replaced by the word "Copied" under the reader's thumb */
+  var callNo = document.getElementById('callNo');
+  var phoneHint = document.getElementById('phoneHint');
+  if (callNo && phoneHint) {
+    callNo.addEventListener('click', function () {
+      copyText(callNo.textContent.replace(/\s+/g, ''), phoneHint, 'Number copied');
     });
   }
 

@@ -1240,11 +1240,31 @@ a.btn:focus-visible,button.btn:focus-visible,button:focus-visible,input:focus-vi
       openCard();
     }
   }
+  /* A trackpad flick is not one wheel event, it is a burst of them over a
+     second or more. Swallowing only the first let the rest of the momentum
+     scroll straight past the title passage, so the tail is eaten too - until
+     the events stop for a moment, and never longer than it takes to settle. */
+  var tailTimer = null, tailGuard = null;
+  function swallowTail(e) {
+    if (e && e.cancelable) e.preventDefault();
+    clearTimeout(tailTimer);
+    tailTimer = setTimeout(releaseTail, 260);
+  }
+  function releaseTail() {
+    clearTimeout(tailTimer); clearTimeout(tailGuard);
+    tailTimer = tailGuard = null;
+    window.removeEventListener('wheel', swallowTail, { passive: false });
+    window.removeEventListener('touchmove', swallowTail, { passive: false });
+  }
   function dropOpenGestures() {
-    window.removeEventListener('wheel', openByGesture);
-    window.removeEventListener('touchmove', openByGesture);
+    window.removeEventListener('wheel', openByGesture, { passive: false });
+    window.removeEventListener('touchmove', openByGesture, { passive: false });
     window.removeEventListener('scroll', openByScrollbar);
     window.removeEventListener('keydown', openByKey);
+    window.addEventListener('wheel', swallowTail, { passive: false });
+    window.addEventListener('touchmove', swallowTail, { passive: false });
+    tailTimer = setTimeout(releaseTail, 260);
+    tailGuard = setTimeout(releaseTail, 2000);   /* never hold the page hostage */
   }
   window.addEventListener('wheel', openByGesture, { passive: false });
   window.addEventListener('touchmove', openByGesture, { passive: false });

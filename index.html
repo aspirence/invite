@@ -231,18 +231,6 @@ body{margin:0;font-family:var(--f-body);font-size:1rem;line-height:1.6;backgroun
   translate:-50% -50%;border-radius:50%;aspect-ratio:1;z-index:-1}
 .halo::before{width:250%;
   background:radial-gradient(circle,rgba(255,238,195,.95) 0%,rgba(255,224,160,.5) 36%,rgba(255,216,150,0) 68%)}
-/* the gold tokens live on .mandap, in the backdrop; the halo sits in the band,
-   a different subtree, so var(--au) resolves to nothing there and stroke falls
-   back to none. These are stated outright. */
-.halo .ring{position:absolute;left:50%;top:50%;translate:-50% -50%;
-  /* the buds paint about 4% proud of the box, so this is sized for the
-     painted extent rather than the element */
-  width:138%;aspect-ratio:1;z-index:-1;overflow:visible;fill:none;stroke:#B2832F}
-.halo .ring .r1{stroke-width:1.5;opacity:.72}
-.halo .ring .r2{stroke-width:.9;opacity:.5}
-.halo .ring .r3{stroke-width:.7;opacity:.3}
-.halo .ring .bead circle{fill:#D6AC57;stroke:none;opacity:.8}
-.halo .ring .bud path{stroke-width:1.1;opacity:.72;stroke-linecap:round;stroke-linejoin:round}
 
 /* a long printed scroll has edges; these stay put while the words move */
 
@@ -672,20 +660,9 @@ a.btn:focus-visible,button.btn:focus-visible,button:focus-visible,input:focus-vi
 <main>
 
 <section class="band ivory open" data-label="Invitation" aria-labelledby="h1">
-  <p class="eyebrow">To</p>
-  <div class="gap-s"></div>
-  <p class="script" style="font-size:1.75rem" data-guest data-default="Mrs. &amp; Mr.">Mrs. &amp; Mr.</p>
-  <div class="gap-l"></div>
   <p class="deva devaSmall">&#2405; &#2384; &#2358;&#2381;&#2352;&#2368; &#2327;&#2339;&#2375;&#2358;&#2366;&#2351; &#2344;&#2350;&#2307; &#2405;</p>
   <div class="gap-m"></div>
   <span class="halo">
-      <svg class="ring" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
-        <circle class="r1" cx="100" cy="100" r="95"/>
-        <circle class="r2" cx="100" cy="100" r="83"/>
-        <g class="bead"><circle cx="100" cy="11" r="1.5"/><circle cx="115.45" cy="12.35" r="1.5"/><circle cx="130.44" cy="16.37" r="1.5"/><circle cx="144.5" cy="22.92" r="1.5"/><circle cx="157.21" cy="31.82" r="1.5"/><circle cx="168.18" cy="42.79" r="1.5"/><circle cx="177.08" cy="55.5" r="1.5"/><circle cx="183.63" cy="69.56" r="1.5"/><circle cx="187.65" cy="84.55" r="1.5"/><circle cx="189" cy="100" r="1.5"/><circle cx="187.65" cy="115.45" r="1.5"/><circle cx="183.63" cy="130.44" r="1.5"/><circle cx="177.08" cy="144.5" r="1.5"/><circle cx="168.18" cy="157.21" r="1.5"/><circle cx="157.21" cy="168.18" r="1.5"/><circle cx="144.5" cy="177.08" r="1.5"/><circle cx="130.44" cy="183.63" r="1.5"/><circle cx="115.45" cy="187.65" r="1.5"/><circle cx="100" cy="189" r="1.5"/><circle cx="84.55" cy="187.65" r="1.5"/><circle cx="69.56" cy="183.63" r="1.5"/><circle cx="55.5" cy="177.08" r="1.5"/><circle cx="42.79" cy="168.18" r="1.5"/><circle cx="31.82" cy="157.21" r="1.5"/><circle cx="22.92" cy="144.5" r="1.5"/><circle cx="16.37" cy="130.44" r="1.5"/><circle cx="12.35" cy="115.45" r="1.5"/><circle cx="11" cy="100" r="1.5"/><circle cx="12.35" cy="84.55" r="1.5"/><circle cx="16.37" cy="69.56" r="1.5"/><circle cx="22.92" cy="55.5" r="1.5"/><circle cx="31.82" cy="42.79" r="1.5"/><circle cx="42.79" cy="31.82" r="1.5"/><circle cx="55.5" cy="22.92" r="1.5"/><circle cx="69.56" cy="16.37" r="1.5"/><circle cx="84.55" cy="12.35" r="1.5"/></g>
-        <g class="bud"><g transform="translate(100 5) rotate(0)"><path d="M0 -9.5C-5.5 -9.5 -9 -5.5 -9 -0.5 -9 4.5 -4.5 8 0 8 4.5 8 9 4.5 9 -0.5 9 -5.5 5.5 -9.5 0 -9.5Z"/><path d="M0 -9.5V8M-6.4 -5.2C-4 -1 -2 3 0 8M6.4 -5.2C4 -1 2 3 0 8"/></g><g transform="translate(195 100) rotate(90)"><path d="M0 -9.5C-5.5 -9.5 -9 -5.5 -9 -0.5 -9 4.5 -4.5 8 0 8 4.5 8 9 4.5 9 -0.5 9 -5.5 5.5 -9.5 0 -9.5Z"/><path d="M0 -9.5V8M-6.4 -5.2C-4 -1 -2 3 0 8M6.4 -5.2C4 -1 2 3 0 8"/></g><g transform="translate(100 195) rotate(180)"><path d="M0 -9.5C-5.5 -9.5 -9 -5.5 -9 -0.5 -9 4.5 -4.5 8 0 8 4.5 8 9 4.5 9 -0.5 9 -5.5 5.5 -9.5 0 -9.5Z"/><path d="M0 -9.5V8M-6.4 -5.2C-4 -1 -2 3 0 8M6.4 -5.2C4 -1 2 3 0 8"/></g><g transform="translate(5 100) rotate(270)"><path d="M0 -9.5C-5.5 -9.5 -9 -5.5 -9 -0.5 -9 4.5 -4.5 8 0 8 4.5 8 9 4.5 9 -0.5 9 -5.5 5.5 -9.5 0 -9.5Z"/><path d="M0 -9.5V8M-6.4 -5.2C-4 -1 -2 3 0 8M6.4 -5.2C4 -1 2 3 0 8"/></g></g>
-        <circle class="r3" cx="100" cy="100" r="74"/>
-      </svg>
       <img class="ganesh" src="assets/ganesh.webp" alt="Shri Ganesha" decoding="async">
   </span>
   <div class="gap-m"></div>

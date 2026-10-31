@@ -18,12 +18,14 @@ references the images and audio by relative path.
 ## What's in here
 
 ```
-index.html        the whole invitation — markup, styles and script
+index.html             the whole invitation — markup, styles and script
 assets/
-  garland.webp    rose arrangement along the foot of every scene
-  corner.webp     spray hanging from the two top corners
-  rose.webp       single bloom, used for the drifting petals
-  tumpremho.mp3   background song, loaded only when sound is switched on
+  wedding-arch.webp      original palace arch, cropped at the top with CSS
+  corner.webp           floral spray for the opening screen and later scenes
+  ganesh.webp           Shri Ganesha artwork
+  sprig.webp            floral divider between passages
+  rose.webp             single bloom, used for the drifting petals
+  tumpremho.mp3         background song, loaded only when sound is switched on
 ```
 
 ## How it works
@@ -37,33 +39,26 @@ gone before its palette is.
 **Palettes.** Five palettes — rose, haldi, sangeet, vivah and reception — each a
 block of CSS custom properties. Every scene keeps its own hue but sits in the
 same dusty, desaturated register. The flower photographs are tinted per palette
-through `--bloomTint`, and the border takes its colour from the passage you are
-reading.
+through `--bloomTint`.
 
-**The title scene.** The opening passage is staged rather than washed. A
-cusped arch is drawn in gold line-work over a cream wall, with silk falling
-from the two upper corners, bells and bead strands swaying along its head, and
-a standing lamp at each of its feet. The arch is stretched to a portrait column
-so it frames the words, while the silk and the bells run out to the screen
-edges where the corner flowers already hang; every stroke uses a non-scaling
-stroke, so no line thickens as the column widens. All of it sits in the first
-backdrop layer, so it fades out with that layer and costs the other eight
-scenes nothing.
+**The title scene.** The original painted palace arch and flowers frame the
+opening passage against a warm ivory background. The transparent WebP image
+is reused unchanged; CSS crops its upper edge to remove the exterior space
+above the flowers. The pillar portions of that same image are positioned
+separately to keep them visible along both sides. The lamps remain removed.
+It sits in the first backdrop layer and fades out as the next passage arrives.
 
 **Two fixed stacks.** The scenery is split in two. #backdrop sits behind the
 words; #canopy sits in front of them and holds the corner sprays, so a passage
 scrolling away slides under the flowers instead of across them. Both stacks
-crossfade off the same scroll position. The swag stays in #backdrop on purpose:
-the last line of every passage sits exactly where it hangs, and its top is
-masked to fade out so the words there stay legible.
+crossfade off the same scroll position. The title scene uses the flowers in
+its arch artwork, so its separate canopy sprays are hidden while the layer
+remains in place to preserve the scene order.
 
-**Fitting a phone.** The passage is centred between the sprays above it and the
-swag below, so it only clears both while its own height stays under twice the
-distance from the middle of the screen to whatever the sprays reach. The
-sprays, swag, lamps, Ganesha and the stops between lines are all bounded by
-svh as well as by width for that reason, and the bells are scaled up and their
-inner pair dropped so the remaining ones flank the narrow opening lines rather
-than land on them.
+**Fitting a phone.** The original crown is cropped at its natural proportions;
+the pillar portions fill the sides beneath it. Corner sprays, Ganesha and the spaces between lines
+are bounded by viewport height as well as width to leave room for the
+invitation text.
 
 **Opening.** The page opens behind a wax seal. Tapping it, scrolling, swiping,
 dragging the scrollbar or pressing Down/PageDown/Space all open it. A tap starts

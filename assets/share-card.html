@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Marcellus&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Tiro+Devanagari+Hindi&display=block">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:1200px;height:630px;overflow:hidden}
+  body{
+    position:relative;
+    background:linear-gradient(176deg,#FFFBF3 0%,#FAF0DF 56%,#EED9BF 100%);
+    font-family:'EB Garamond',Georgia,serif;
+    display:flex;align-items:center;justify-content:center;
+  }
+  /* the same washed-paper mottle the title scene uses */
+  .mottle{position:absolute;inset:0;opacity:.3;
+    background:
+      radial-gradient(54% 44% at 50% 14%, #FFFEF8, transparent 72%),
+      radial-gradient(40% 36% at 10% 74%, #E7CFA8, transparent 76%),
+      radial-gradient(40% 36% at 90% 74%, #E7CFA8, transparent 76%)}
+  .glow{position:absolute;left:50%;top:38%;width:760px;aspect-ratio:1;transform:translate(-50%,-50%);
+    background:radial-gradient(circle,#FFF0CD 0%,transparent 58%);opacity:.75}
+  .corner{position:absolute;top:0;width:290px;height:auto;opacity:.97}
+  .corner.l{left:-26px;transform:rotate(180deg)}
+  .corner.r{right:-26px;transform:rotate(180deg) scaleX(-1)}
+  .corner.bl{top:auto;bottom:-86px;left:-62px;width:200px;transform:rotate(14deg);opacity:.42}
+  .corner.br{top:auto;bottom:-86px;right:-62px;width:200px;transform:rotate(-14deg) scaleX(-1);opacity:.42}
+
+  .col{position:relative;z-index:2;text-align:center;width:800px;padding-top:14px}
+  .deva{font-family:'Tiro Devanagari Hindi',serif;color:#7A2433;font-size:18px;letter-spacing:.01em}
+  .halo{position:relative;display:inline-block;line-height:0;margin:16px 0 4px}
+  .halo::before{content:"";position:absolute;left:50%;top:50%;translate:-50% -50%;
+    width:250%;aspect-ratio:1;border-radius:50%;z-index:-1;
+    background:radial-gradient(circle,rgba(255,238,195,.95) 0%,rgba(255,224,160,.5) 36%,rgba(255,216,150,0) 68%)}
+  .halo img{width:112px;display:block}
+
+  .names{font-family:'Pinyon Script',cursive;color:#7A2433;font-size:94px;line-height:1.1;
+    padding-inline:.18em;white-space:nowrap}
+  .names .weds{font-family:'EB Garamond',serif;font-style:italic;font-size:33px;color:#9A5862;
+    vertical-align:.34em;padding-inline:.34em;letter-spacing:.02em}
+
+  .rule{display:flex;align-items:center;justify-content:center;gap:14px;margin:22px auto 20px;width:470px}
+  .rule i{flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(178,131,47,.62),transparent)}
+  .rule b{color:#B2832F;font-size:13px;font-weight:400;line-height:1}
+
+  .when{font-family:'Marcellus',serif;color:#8A5A1E;font-size:27px;letter-spacing:.17em;text-transform:uppercase}
+  .where{font-family:'Marcellus',serif;color:#9A5862;font-size:15px;letter-spacing:.21em;
+    text-transform:uppercase;margin-top:13px}
+</style></head>
+<body>
+  <div class="mottle"></div><div class="glow"></div>
+  <img class="corner l" src="assets/corner.webp" alt="">
+  <img class="corner r" src="assets/corner.webp" alt="">
+  <img class="corner bl" src="assets/sprig.webp" alt="">
+  <img class="corner br" src="assets/sprig.webp" alt="">
+
+  <div class="col">
+    <p class="deva">&#2405; &#2358;&#2381;&#2352;&#2368; &#2327;&#2339;&#2375;&#2358;&#2366;&#2351; &#2344;&#2350;&#2307; &#2405;</p>
+    <span class="halo"><img src="assets/ganesh.webp" alt=""></span>
+    <p class="names">Saharsh<span class="weds">weds</span>Shreya</p>
+    <div class="rule"><i></i><b>&#10022;</b><i></i></div>
+    <p class="when">20 &amp; 21 November 2026</p>
+    <p class="where">Scorpio Club &middot; Kursi Road, Lucknow</p>
+  </div>
+</body></html>

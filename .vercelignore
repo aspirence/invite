@@ -1,0 +1,12 @@
+# Source artwork the page never references — kept in git, not shipped to the CDN.
+assets/2.png
+assets/3.png
+assets/4.png
+assets/5.png
+assets/6.png
+assets/ganesh_ji.png
+assets/ARTWORK.md
+README.md
+.github
+assets/wedding-arch-fullbleed.webp
+assets/share-card.html

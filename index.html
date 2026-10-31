@@ -1,7 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Saharsh weds Shreya</title>
 <meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Saharsh weds Shreya &mdash; 20 &amp; 21 November 2026 at Scorpio Club, Kursi Road, Lucknow. Haldi, Sangeet, Shubh Vivah and the Grand Reception.">
+<meta name="theme-color" content="#F5E7E2">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+<!-- The link preview. This card is forwarded over WhatsApp far more than it is
+     typed into a browser, so these tags are most guests' first sight of it.
+     og:image has to be an absolute URL - a relative one is silently dropped. -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Saharsh weds Shreya">
+<meta property="og:locale" content="en_IN">
+<meta property="og:url" content="https://saharsh-weds-shreya.vercel.app/">
+<meta property="og:title" content="Saharsh weds Shreya">
+<meta property="og:description" content="20 &amp; 21 November 2026 &middot; Scorpio Club, Kursi Road, Lucknow. Do join us for the Haldi, Sangeet, Shubh Vivah and Reception.">
+<meta property="og:image" content="https://saharsh-weds-shreya.vercel.app/assets/share.jpg">
+<meta property="og:image:secure_url" content="https://saharsh-weds-shreya.vercel.app/assets/share.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Saharsh weds Shreya, 20 and 21 November 2026, Lucknow">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Saharsh weds Shreya">
+<meta name="twitter:description" content="20 &amp; 21 November 2026 &middot; Scorpio Club, Kursi Road, Lucknow.">
+<meta name="twitter:image" content="https://saharsh-weds-shreya.vercel.app/assets/share.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Marcellus&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Tiro+Devanagari+Hindi&display=swap">
@@ -125,100 +152,32 @@ body{margin:0;font-family:var(--f-body);font-size:1rem;line-height:1.6;backgroun
 .corner.l{left:-3%;transform:rotate(180deg)}
 .corner.r{right:-3%;transform:rotate(180deg) scaleX(-1)}
 
-/* ---------------- the title scene: a mandap drawn in line-work ----------------
-   The opening passage is staged rather than washed. A cusped arch stands on a
-   cream wall, silk falls from its shoulders, bead strands hang along
-   its head, and two standing lamps burn at its feet. All of it lives in the
-   first backdrop layer, so it fades out with that layer and costs the other
-   eight scenes nothing. */
-.mandap{
-  --au:#B2832F; --auMid:#D6AC57; --auDeep:#8E6522;
-  --col:min(760px,110%,85svh);
-}
-.mandap .sky{background:linear-gradient(176deg,#FDF8EC 0%,#F9EFDB 48%,#F1DEC4 100%)}
-.mandap .sky::after{opacity:.32;
+/* ---------------- the title scene: painted palace artwork ----------------
+   Crop the original crown at source row 150 to remove the empty upper wedges.
+   Reuse its pillar portions separately so the top crop does not lose them. */
+.mandap .sky{background:linear-gradient(176deg,#FFFBF3 0%,#FAF0DF 56%,#EED9BF 100%)}
+.mandap .sky::after{opacity:.22;
   background:
-    radial-gradient(54% 36% at 50% 16%, #FFFEF8, rgba(255,255,255,0) 72%),
-    radial-gradient(42% 30% at 12% 70%, #E7CFA8, rgba(0,0,0,0) 76%),
-    radial-gradient(42% 30% at 88% 70%, #E7CFA8, rgba(0,0,0,0) 76%)}
-.mandap .glow{top:3%;opacity:.5;background:radial-gradient(circle,#FFF0CD 0%,rgba(255,240,205,0) 58%)}
-
-/* the mandap is held to one portrait column, so on a wide screen it stays a
-   composition instead of stretching out into scenery */
+    radial-gradient(54% 36% at 50% 16%, #FFFEF8, transparent 72%),
+    radial-gradient(42% 30% at 12% 70%, #E7CFA8, transparent 76%),
+    radial-gradient(42% 30% at 88% 70%, #E7CFA8, transparent 76%)}
+.mandap .glow{top:3%;opacity:.35;background:radial-gradient(circle,#FFF0CD 0%,transparent 58%)}
 .stage{position:absolute;inset:0}
-.stage>*{position:absolute}
-/* Each of these is sized off its width, so on a short or landscape screen it
-   would grow taller than the screen itself - the strands once reached 114% of it.
-   The svh term in every min() is the ceiling that stops that; it never binds on
-   a portrait phone, where the width terms are already the smaller ones.
-
-   The silk and the strands run out to the edges, where the corner flowers
-   already hang, so the scene has no seam on a wide screen. The arch and its
-   lamps keep to a portrait column instead, so they frame the words rather
-   than stretch away from them. */
-/* On a phone the column IS the screen, so an arch held inside it stands right
-   where the longest line of type wants to go. Letting it run a little past the
-   screen edge puts its jambs back outside the words. */
-.arena{top:0;bottom:0;left:50%;transform:translateX(-50%);width:var(--col)}
-/* The lamps stand 12% in from each edge of that column, so a swag at 84% of it
-   reaches across the gap and over both pedestals, the way the reference sets
-   its flowers against the lamps. */
-.arena>*{position:absolute}
-
-/* rangoli laid on the floor, read as rings rather than drawn petal by petal */
-.rangoli{left:0;right:0;bottom:0;height:44%;opacity:.26;
-  background:
-    repeating-radial-gradient(circle at 50% 116%,rgba(178,131,47,0) 0 25px,rgba(178,131,47,.55) 25px 26px),
-    radial-gradient(58% 72% at 50% 116%,rgba(255,214,150,.55),rgba(255,214,150,0) 72%);
-  -webkit-mask-image:radial-gradient(68% 92% at 50% 110%,#000 18%,rgba(0,0,0,0) 74%);
-  mask-image:radial-gradient(68% 92% at 50% 110%,#000 18%,rgba(0,0,0,0) 74%)}
-.floorlight{left:0;right:0;bottom:0;height:26%;
-  background:radial-gradient(62% 100% at 50% 100%,rgba(255,213,148,.4),rgba(255,213,148,0) 70%)}
-
-/* The arch is stretched to the column on purpose - a frame should meet the
-   edges it frames - so every stroke is held at a constant weight and the
-   ornaments ride along as separate, unstretched pieces. */
-.archwork{inset:0;width:100%;height:100%;fill:none;stroke:var(--au);stroke-linecap:round}
-.archwork path{vector-effect:non-scaling-stroke}
-.archwork .lead{stroke-width:2.1}
-.archwork .trace{stroke-width:1;opacity:.66}
-.archwork .hair{stroke-width:.9;opacity:.38}
-/* placed on the fractions the arch's own geometry uses, so they stay on it
-   however the column is stretched: apex 300/600 by 70/900, haunch 46/600 by 470/900 */
-.finial{left:50%;top:7.8%;width:clamp(44px,9.5vw,78px);transform:translate(-50%,-88%)}
-.haunch{top:52.2%;width:clamp(30px,6.4vw,54px);transform:translate(-50%,-50%)}
-.haunch.l{left:7.7%}
-.haunch.r{left:92.3%}
-.finial path,.haunch path,.finial circle,.haunch circle{fill:none;stroke:var(--au);stroke-width:1.6;stroke-linecap:round}
-
-
-/* silk falling from the two upper corners */
-.drape{top:0;width:min(24%,290px,31svh);height:auto}
-.drape.l{left:0}
-.drape.r{right:0;transform:scaleX(-1)}
-.drape .silk{fill:url(#silkGrad)}
-.drape .sheen{fill:#FBE6E3;opacity:.4}
-.drape .fold{fill:none;stroke:rgba(176,99,110,.32);stroke-width:1.6;stroke-linecap:round}
-.drape .trim{fill:none;stroke:var(--auMid);stroke-width:2.2;opacity:.62}
-
-/* a standing lamp at each foot of the arch; the flowers cross their bases */
-.lamp{bottom:0;width:min(15%,106px,12.4svh);height:auto}
-.lamp.l{left:12%}
-.lamp.r{right:12%}
-/* The arena is bounded by 85svh, so on a short window it narrows until the
-   lamps stand inside the 430px column of writing and land on the title. Once
-   the screen is wider than the writing plus two lamps, place them from the
-   centre instead, clear of the column. */
-@media (min-width:680px){
-  .lamp.l{left:auto;right:calc(50% + 232px)}
-  .lamp.r{right:auto;left:calc(50% + 232px)}
+.arena{position:absolute;top:0;left:50%;width:138vw;transform:translateX(-50%)}
+.palace-arch{display:block;width:100%;height:auto;transform:translateY(-9.765625%);
+  clip-path:inset(0 0 66.8% 0)}
+.arch-column{position:absolute;top:47vw;bottom:-8px;width:18.125vw;overflow:hidden}
+.arch-column.l{left:-8vw}
+.arch-column.r{right:-8vw}
+.arch-column img{position:absolute;top:0;left:0;width:640%;height:max(154.2169%,174vw);
+  max-width:none;transform:translateY(-35.15625%)}
+.arch-column.r img{left:auto;right:0}
+@media (max-height:600px) and (min-width:680px){
+  .band.open{padding-top:80px}
 }
-.lamp .body{fill:url(#auGrad);stroke:var(--auDeep);stroke-width:1.2}
-.lamp .cage{fill:none;stroke:var(--auDeep);stroke-width:1.2}
-.lamp .line{fill:none;stroke:var(--auDeep);stroke-width:1.6;stroke-linecap:round}
-.lamp .lit{fill:url(#litGrad)}
-.lamp .flame{fill:url(#haloGrad);animation:burn 4.2s ease-in-out infinite}
-@keyframes burn{0%,100%{opacity:.72}36%{opacity:1}64%{opacity:.84}}
+/* The arch already carries its own floral canopy. Keep this layer empty so
+   backdrop and canopy crossfades still share the same nine scene indices. */
+#canopy .layer:first-child .corner{display:none}
 
 /* the arch is gold, so the one line of small caps standing under it is too */
 .band.open{--gold:#B2832F}
@@ -256,7 +215,7 @@ main{position:relative;z-index:2}
 /* The first and last passages cannot be centred: their centres fall above
    scrollY 0 and below the last scrollable pixel, so with mandatory snapping
    the browser skips straight past them. They align to the ends instead. */
-.band.open{min-height:min(96svh,752px);scroll-snap-align:start}
+.band.open{min-height:100svh;scroll-snap-align:start}
 .band:last-of-type{scroll-snap-align:end}
 .gap-s{height:8px}.gap-m{height:18px}.gap-l{height:32px}
 /* The opening passage is the one a guest lingers on, so its stops open up -
@@ -366,6 +325,7 @@ a.btn:focus-visible,button.btn:focus-visible,button:focus-visible,input:focus-vi
 .opener-art{position:absolute;top:0;bottom:0;left:50%;transform:translateX(-50%);
   width:min(452px,100%);pointer-events:none;z-index:1;
   display:grid;place-items:center;color:var(--rule)}
+.opener-art .corner{translate:0 -12%}
 .opener-in{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;max-width:430px;color:#9A5862}
 .opener-in .ganesh{width:min(118px,30%);margin:0 0 10px}
 .opener-in .opener-inv{font-family:var(--f-dev);font-size:.8rem;color:#9C5560;margin:0 0 26px;line-height:1.9}
@@ -397,43 +357,19 @@ a.btn:focus-visible,button.btn:focus-visible,button:focus-visible,input:focus-vi
    it while its own height stays under twice the gap between the middle of
    the screen and whatever those sprays reach. These sizes buy that room. */
 @media (max-width:560px){
-  .drape{width:min(42%,31svh)}
   .corner{width:min(168px,30%,21svh)}
-  .lamp{width:min(15%,106px,6.6svh)}
   .halo{width:min(110px,28%,13svh)}
   .band.open .gap-s{height:clamp(6px,1.1svh,9px)}
   .band.open .gap-m{height:clamp(13px,2.4svh,20px)}
   .band.open .gap-l{height:clamp(22px,4.3svh,36px)}
 }
 </style>
+</head>
+<body>
 
 <svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute">
 
-  <defs>
-    <!-- leaf gold, for anything the title scene fills rather than draws -->
-    <linearGradient id="auGrad" x1="0" y1="0" x2=".72" y2="1">
-      <stop offset="0" stop-color="#F6E3B4"/>
-      <stop offset=".34" stop-color="#DCB463"/>
-      <stop offset=".68" stop-color="#B2832F"/>
-      <stop offset="1" stop-color="#8E6522"/>
-    </linearGradient>
-    <linearGradient id="silkGrad" x1="0" y1="0" x2=".58" y2="1">
-      <stop offset="0" stop-color="#F8DAD8"/>
-      <stop offset=".48" stop-color="#ECB6B9"/>
-      <stop offset="1" stop-color="#CE838E"/>
-    </linearGradient>
-    <radialGradient id="litGrad" cx=".5" cy=".4" r=".66">
-      <stop offset="0" stop-color="#FFF6DD"/>
-      <stop offset=".44" stop-color="#FFD38C"/>
-      <stop offset="1" stop-color="#E9A24E" stop-opacity=".3"/>
-    </radialGradient>
-    <radialGradient id="haloGrad" cx=".5" cy=".5" r=".5">
-      <stop offset="0" stop-color="#FFD9A0" stop-opacity=".62"/>
-      <stop offset=".5" stop-color="#FFC978" stop-opacity=".2"/>
-      <stop offset="1" stop-color="#FFC978" stop-opacity="0"/>
-    </radialGradient>
 
-  </defs>
 
   <symbol id="lotus" viewBox="0 0 48 30">
     <g fill="none" stroke="currentColor" stroke-width="1.2">
@@ -450,103 +386,11 @@ a.btn:focus-visible,button.btn:focus-visible,button:focus-visible,input:focus-vi
   <div class="layer ivory mandap">
     <div class="sky"></div><div class="glow"></div>
     <div class="stage">
-      <div class="rangoli"></div>
-      <div class="floorlight"></div>
-
+      <div class="arch-column l"><img src="assets/wedding-arch.webp" alt="" decoding="async"></div>
+      <div class="arch-column r"><img src="assets/wedding-arch.webp" alt="" decoding="async"></div>
       <div class="arena">
-      <svg class="archwork" viewBox="0 0 600 900" preserveAspectRatio="none">
-        <!-- a plain outer arch with a scalloped one set within it -->
-        <path class="lead" d="M46 470A442 442 0 0 1 300 70 442 442 0 0 1 554 470"/>
-        <path class="lead" d="M46 470V900M554 470V900"/>
-        <path class="trace" d="M64 452A33.6 33.6 0 0 0 69.4 387.7 33.6 33.6 0 0 0 85.4 325.1 33.6 33.6 0 0 0 111.6 266.1 33.6 33.6 0 0 0 147.3 212.3 33.6 33.6 0 0 0 191.5 165.1 33.6 33.6 0 0 0 242.8 126 33.6 33.6 0 0 0 300 96 33.6 33.6 0 0 0 357.2 126 33.6 33.6 0 0 0 408.5 165.1 33.6 33.6 0 0 0 452.7 212.3 33.6 33.6 0 0 0 488.4 266.1 33.6 33.6 0 0 0 514.6 325.1 33.6 33.6 0 0 0 530.6 387.7 33.6 33.6 0 0 0 536 452"/>
-        <path class="trace" d="M64 452V900M536 452V900"/>
-        <path class="hair" d="M28 470V900M572 470V900"/>
-        <!-- a capital where each column meets the springing of the arch -->
-        <path class="trace" d="M18 470h58M524 470h58"/>
-        <path class="hair" d="M24 481h46M530 481h46"/>
-        <!-- and a fine rule following the lead arch just inside it -->
-        <path class="hair" d="M58 470A428 428 0 0 1 300 84 428 428 0 0 1 542 470"/>
-      </svg>
-
-      <svg class="haunch l" viewBox="0 0 60 60">
-        <circle cx="30" cy="30" r="6.5"/>
-        <path d="M30 23.5C30 14 25 8 16 6c2 9 7 14 14 17.5Z"/>
-        <path d="M23.5 30C14 30 8 35 6 44c9-2 14-7 17.5-14Z"/>
-        <path d="M36.5 30C46 30 52 25 54 16c-9 2-14 7-17.5 14Z"/>
-        <path d="M30 36.5C30 46 35 52 44 54c-2-9-7-14-14-17.5Z"/>
-      </svg>
-      <svg class="haunch r" viewBox="0 0 60 60">
-        <circle cx="30" cy="30" r="6.5"/>
-        <path d="M30 23.5C30 14 25 8 16 6c2 9 7 14 14 17.5Z"/>
-        <path d="M23.5 30C14 30 8 35 6 44c9-2 14-7 17.5-14Z"/>
-        <path d="M36.5 30C46 30 52 25 54 16c-9 2-14 7-17.5 14Z"/>
-        <path d="M30 36.5C30 46 35 52 44 54c-2-9-7-14-14-17.5Z"/>
-      </svg>
-      <svg class="finial" viewBox="0 0 80 70">
-        <path d="M40 68V42"/>
-        <path d="M40 42c-7.5 0-13-6-13-13.5 0-6.5 5-13 13-18 8 5 13 11.5 13 18 0 7.5-5.5 13.5-13 13.5Z"/>
-        <path d="M27 45c-8.5-2-14-8.5-15-17 8.5 1 14 6.5 15 17Z"/>
-        <path d="M53 45c8.5-2 14-8.5 15-17-8.5 1-14 6.5-15 17Z"/>
-        <circle cx="40" cy="7" r="3.2"/>
-      </svg>
-
-      <svg class="lamp l" viewBox="0 0 110 300">
-        <ellipse class="flame" cx="55" cy="126" rx="55" ry="86"/>
-        <path class="line" d="M55 12v14"/>
-        <circle class="body" cx="55" cy="31" r="5"/>
-        <path class="body" d="M25 84c0-28 13-48 30-48s30 20 30 48Z"/>
-        <path class="line" d="M19 84h72"/>
-        <path class="lit" d="M31 90h48l-4 68H35Z"/>
-        <path class="cage" d="M29 88h52l-4 72H33Z"/>
-        <path class="cage" d="M47 88l-3 72M63 88l3 72"/>
-        <path class="line" d="M24 162h62"/>
-        <path class="body" d="M48 162c0 20-2 34-7 48h28c-5-14-7-28-7-48Z"/>
-        <ellipse class="body" cx="55" cy="214" rx="13" ry="6"/>
-        <path class="body" d="M38 256c0-16 5-30 9-40h16c4 10 9 24 9 40Z"/>
-        <path class="body" d="M25 274h60l-7-18H32Z"/>
-        <path class="body" d="M18 286h74v12H18Z"/>
-      </svg>
-      <svg class="lamp r" viewBox="0 0 110 300">
-        <ellipse class="flame" cx="55" cy="126" rx="55" ry="86"/>
-        <path class="line" d="M55 12v14"/>
-        <circle class="body" cx="55" cy="31" r="5"/>
-        <path class="body" d="M25 84c0-28 13-48 30-48s30 20 30 48Z"/>
-        <path class="line" d="M19 84h72"/>
-        <path class="lit" d="M31 90h48l-4 68H35Z"/>
-        <path class="cage" d="M29 88h52l-4 72H33Z"/>
-        <path class="cage" d="M47 88l-3 72M63 88l3 72"/>
-        <path class="line" d="M24 162h62"/>
-        <path class="body" d="M48 162c0 20-2 34-7 48h28c-5-14-7-28-7-48Z"/>
-        <ellipse class="body" cx="55" cy="214" rx="13" ry="6"/>
-        <path class="body" d="M38 256c0-16 5-30 9-40h16c4 10 9 24 9 40Z"/>
-        <path class="body" d="M25 274h60l-7-18H32Z"/>
-        <path class="body" d="M18 286h74v12H18Z"/>
-      </svg>
+        <img class="palace-arch" src="assets/wedding-arch.webp" width="1024" height="1536" alt="" decoding="async" fetchpriority="high">
       </div>
-
-      <svg class="drape l" viewBox="0 0 220 400">
-        <path class="silk" d="M0 0h214c-10 54-41 100-82 138-43 40-79 91-97 150C26 332 12 368 0 400Z"/>
-        <path class="sheen" d="M0 0h94c-6 58-23 108-47 154-22 44-38 90-47 138Z"/>
-        <g class="fold">
-          <path d="M36 4c-2 74-13 152-33 234"/>
-          <path d="M86 4c-4 70-23 136-55 198"/>
-          <path d="M140 4c-9 57-33 107-71 151"/>
-          <path d="M188 4c-11 45-35 83-67 115"/>
-        </g>
-        <path class="trim" d="M214 0c-10 54-41 100-82 138-43 40-79 91-97 150C26 332 12 368 0 400"/>
-      </svg>
-      <svg class="drape r" viewBox="0 0 220 400">
-        <path class="silk" d="M0 0h214c-10 54-41 100-82 138-43 40-79 91-97 150C26 332 12 368 0 400Z"/>
-        <path class="sheen" d="M0 0h94c-6 58-23 108-47 154-22 44-38 90-47 138Z"/>
-        <g class="fold">
-          <path d="M36 4c-2 74-13 152-33 234"/>
-          <path d="M86 4c-4 70-23 136-55 198"/>
-          <path d="M140 4c-9 57-33 107-71 151"/>
-          <path d="M188 4c-11 45-35 83-67 115"/>
-        </g>
-        <path class="trim" d="M214 0c-10 54-41 100-82 138-43 40-79 91-97 150C26 332 12 368 0 400"/>
-      </svg>
-
     </div>
   </div>
   <div class="layer ivory">
@@ -1259,3 +1103,5 @@ a.btn:focus-visible,button.btn:focus-visible,button:focus-visible,input:focus-vi
 
 })();
 </script>
+</body>
+</html>

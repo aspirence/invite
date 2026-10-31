@@ -127,7 +127,7 @@ body{margin:0;font-family:var(--f-body);font-size:1rem;line-height:1.6;backgroun
 
 /* ---------------- the title scene: a mandap drawn in line-work ----------------
    The opening passage is staged rather than washed. A cusped arch stands on a
-   cream wall, silk falls from its shoulders, bells and bead strands hang along
+   cream wall, silk falls from its shoulders, bead strands hang along
    its head, and two standing lamps burn at its feet. All of it lives in the
    first backdrop layer, so it fades out with that layer and costs the other
    eight scenes nothing. */
@@ -148,11 +148,11 @@ body{margin:0;font-family:var(--f-body);font-size:1rem;line-height:1.6;backgroun
 .stage{position:absolute;inset:0}
 .stage>*{position:absolute}
 /* Each of these is sized off its width, so on a short or landscape screen it
-   would grow taller than the screen itself - the bells once reached 114% of it.
+   would grow taller than the screen itself - the strands once reached 114% of it.
    The svh term in every min() is the ceiling that stops that; it never binds on
    a portrait phone, where the width terms are already the smaller ones.
 
-   The silk and the bells run out to the edges, where the corner flowers
+   The silk and the strands run out to the edges, where the corner flowers
    already hang, so the scene has no seam on a wide screen. The arch and its
    lamps keep to a portrait column instead, so they frame the words rather
    than stretch away from them. */
@@ -191,22 +191,21 @@ body{margin:0;font-family:var(--f-body);font-size:1rem;line-height:1.6;backgroun
 .haunch.r{left:92.3%}
 .finial path,.haunch path,.finial circle,.haunch circle{fill:none;stroke:var(--au);stroke-width:1.6;stroke-linecap:round}
 
-/* bells and bead strands along the head of the arch; the ends fade so the
+/* bead strands along the head of the arch; the ends fade so the
    words below them never sit on gold */
 .chimes{left:50%;transform:translateX(-50%);top:0;width:min(1700px,100%,92svh);height:auto;
-  /* a scaled-up bell hangs past the foot of the viewBox, so the canvas must not
+  /* a scaled-up strand hangs past the foot of the viewBox, so the canvas must not
      clip it, and the fade has to be told how far down to reach */
   overflow:visible;
   -webkit-mask-image:linear-gradient(to bottom,#000 74%,rgba(0,0,0,0) 100%);
   mask-image:linear-gradient(to bottom,#000 74%,rgba(0,0,0,0) 100%);
   -webkit-mask-size:100% var(--chimeReach,100%);mask-size:100% var(--chimeReach,100%);
   -webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
-.chimes .cord{fill:none;stroke:var(--auDeep);stroke-width:1;opacity:.72}
 .chimes .beads{fill:none;stroke:var(--auMid);stroke-width:2.6;stroke-linecap:round;stroke-dasharray:0 6.5}
 .chimes .drop{fill:url(#auGrad);stroke:var(--auDeep);stroke-width:.7}
 /* fill-box puts the pivot on the knot at the top of each string, and the
    rotate property keeps the translate that places it untouched */
-.swing{transform-box:fill-box;transform-origin:50% 0;scale:var(--bellScale,1);
+.swing{transform-box:fill-box;transform-origin:50% 0;scale:var(--strandScale,1);
   animation:sway var(--t,5s) ease-in-out var(--dly,0s) infinite}
 @keyframes sway{0%,100%{rotate:-3deg}50%{rotate:3deg}}
 
@@ -410,14 +409,14 @@ a.btn:focus-visible,button.btn:focus-visible,button:focus-visible,input:focus-vi
   html{scroll-behavior:auto}
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
 }
-/* On a phone the bells came out smaller than the flowers they hang beside, and
-   the silk sat entirely behind those flowers. The bell scale pivots on the knot,
-   so a bigger bell also hangs lower, which is what carries it clear of them. */
+/* On a phone the strands came out smaller than the flowers they hang beside,
+   and the silk sat entirely behind those flowers. The scale pivots on the knot,
+   so a longer strand also hangs lower, which carries it clear of them. */
 @media (max-width:560px){
-  /* the outer bells flank the narrow opening lines; the inner pair would land
+  /* the outer strands flank the narrow opening lines; the inner pair would land
      on them, and a phone has no width to move them aside, so they go */
   .chimes .inner{display:none}
-  .chimes{--bellScale:1.9;--chimeReach:210%}
+  .chimes{--strandScale:1.4;--chimeReach:150%}
   .drape{width:min(42%,31svh)}
 }
 /* On a phone every one of these is competing with the passage for the same
@@ -460,16 +459,6 @@ a.btn:focus-visible,button.btn:focus-visible,button:focus-visible,input:focus-vi
       <stop offset="1" stop-color="#FFC978" stop-opacity="0"/>
     </radialGradient>
 
-    <!-- one bell, hung from its own origin so a sway can pivot on the knot -->
-    <g id="bellSym">
-      <circle cx="0" cy="2.6" r="2.7" fill="none" stroke="#8E6522" stroke-width="1.3"/>
-      <path d="M0 5.4C-7.4 6.8-11 13.8-12 22.6h24C11 13.8 7.4 6.8 0 5.4Z"
-            fill="url(#auGrad)" stroke="#8E6522" stroke-width=".8"/>
-      <ellipse cx="0" cy="22.6" rx="12" ry="3.1"
-               fill="url(#auGrad)" stroke="#8E6522" stroke-width=".8"/>
-      <path d="M0 24.4v2.6" stroke="#8E6522" stroke-width=".9"/>
-      <circle cx="0" cy="29" r="2.4" fill="url(#auGrad)" stroke="#8E6522" stroke-width=".7"/>
-    </g>
   </defs>
 
   <symbol id="lotus" viewBox="0 0 48 30">
@@ -580,14 +569,6 @@ a.btn:focus-visible,button.btn:focus-visible,button:focus-visible,input:focus-vi
       </svg>
 
       <svg class="chimes" viewBox="0 0 600 300">
-        <g transform="translate(52 0)"><g class="swing" style="--t:5.4s;--dly:-0.2s"><path class="cord" d="M0 0v92"/><use href="#bellSym" y="92"/></g></g>
-        <g transform="translate(100 0)"><g class="swing" style="--t:6.1s;--dly:-1.7s"><path class="cord" d="M0 0v146"/><use href="#bellSym" y="146"/></g></g>
-        <g transform="translate(154 0)"><g class="swing" style="--t:4.8s;--dly:-0.9s"><path class="cord" d="M0 0v62"/><use href="#bellSym" y="62"/></g></g>
-        <g transform="translate(204 0)"><g class="swing inner" style="--t:5.7s;--dly:-2.4s"><path class="cord" d="M0 0v118"/><use href="#bellSym" y="118"/></g></g>
-        <g transform="translate(396 0)"><g class="swing inner" style="--t:5.2s;--dly:-1.3s"><path class="cord" d="M0 0v84"/><use href="#bellSym" y="84"/></g></g>
-        <g transform="translate(446 0)"><g class="swing" style="--t:6.3s;--dly:-0.5s"><path class="cord" d="M0 0v136"/><use href="#bellSym" y="136"/></g></g>
-        <g transform="translate(500 0)"><g class="swing" style="--t:4.9s;--dly:-2.1s"><path class="cord" d="M0 0v66"/><use href="#bellSym" y="66"/></g></g>
-        <g transform="translate(548 0)"><g class="swing" style="--t:5.9s;--dly:-1.1s"><path class="cord" d="M0 0v104"/><use href="#bellSym" y="104"/></g></g>
 
         <g transform="translate(76 0)"><g class="swing" style="--t:7.2s;--dly:-1.4s"><path class="beads" d="M0 0v176"/><path class="drop" d="M0 176c-4.5 6-7 10.5-7 14.5a7 7 0 0 0 14 0c0-4-2.5-8.5-7-14.5Z"/></g></g>
         <g transform="translate(128 0)"><g class="swing" style="--t:6.6s;--dly:-2.8s"><path class="beads" d="M0 0v132"/><path class="drop" d="M0 132c-4.5 6-7 10.5-7 14.5a7 7 0 0 0 14 0c0-4-2.5-8.5-7-14.5Z"/></g></g>

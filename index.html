@@ -250,22 +250,23 @@ main{position:relative;z-index:2}
   width:min(430px,100%);margin-inline:auto;
   padding-left:max(20px, env(safe-area-inset-left, 0px));
   padding-right:max(20px, env(safe-area-inset-right, 0px));
-  padding-block:clamp(52px,10vh,92px);
-  /* one passage fills the screen, so the palette under it is always its own —
-     but nothing is snapped or boxed; the scroll runs straight through */
-  min-height:86svh;justify-content:center;
+  padding-block:clamp(40px,7vh,68px);
+  /* A passage should fill the screen on a phone, but svh alone stretches it on
+     a tall one - at 1363px high these bands ran 1172px for 305px of writing,
+     three quarters of it empty. The px cap holds the measure steady instead. */
+  min-height:min(84svh,596px);justify-content:center;
   color:var(--inkSoft);
 }
 .band>*{margin:0;max-width:100%}
-.band.open{min-height:100svh}
+.band.open{min-height:min(96svh,752px)}
 .gap-s{height:8px}.gap-m{height:18px}.gap-l{height:32px}
 /* The opening passage is the one a guest lingers on, so its stops open up -
    but only where the screen is tall enough that the extra height does not
    push the last line down into the swag. */
 @media (min-height:950px){
-  .band.open .gap-s{height:12px}
-  .band.open .gap-m{height:28px}
-  .band.open .gap-l{height:48px}
+  .band.open .gap-s{height:10px}
+  .band.open .gap-m{height:22px}
+  .band.open .gap-l{height:38px}
 }
 
 .band.open>*{position:relative;z-index:1}
@@ -290,7 +291,8 @@ main{position:relative;z-index:2}
 .parent{font-family:var(--f-disp);font-size:.78rem;letter-spacing:.07em;color:var(--inkSoft);text-wrap:balance;max-width:30ch}
 .note{font-style:italic;font-size:.95rem;color:var(--inkSoft);max-width:28ch;text-wrap:balance}
 .haldi .band,.sangeet .band,.reception .band,
-.band.haldi,.band.sangeet,.band.reception{text-shadow:0 1px 12px rgba(10,22,46,.5)}
+.band.haldi,.band.sangeet,.band.reception{
+  text-shadow:0 1px 2px rgba(22,14,30,.5), 0 0 14px rgba(22,14,30,.45)}
 
 /* the join between one passage and the next */
 .seam{display:flex;justify-content:center;padding-block:2px}
@@ -950,7 +952,7 @@ a.btn:focus-visible,button.btn:focus-visible,button:focus-visible,input:focus-vi
     for (var k = 0; k < bands.length; k++) if (tops[k] <= y + vh * 0.15) i = k;
     if (i >= last) return last;
     var edge = tops[i + 1] - y;
-    var t = (vh * 0.95 - edge) / (vh * 0.8);
+    var t = (vh * 0.95 - edge) / (vh * 0.93);
     if (t < 0) t = 0; else if (t > 1) t = 1;
     return i + t * t * (3 - 2 * t);
   }
